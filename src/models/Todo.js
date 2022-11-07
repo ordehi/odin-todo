@@ -3,12 +3,16 @@ export const Todo = (id, name) => {
   let _name = name;
   let _doneStatus = false;
 
-  const changeName = (name) => {
+  const rename = (name) => {
     _name = name;
   };
 
-  const toggleStatus = () => {
+  const toggle = () => {
     _doneStatus = !_doneStatus;
+  };
+
+  const getProps = () => {
+    return { id: _id, name: _name, doneStatus: _doneStatus };
   };
 
   const readName = () => _name;
@@ -16,8 +20,9 @@ export const Todo = (id, name) => {
   const readStatus = () => _doneStatus;
 
   return {
-    changeName,
-    toggleStatus,
+    rename,
+    toggle,
+    getProps,
     readName,
     readId,
     readStatus,

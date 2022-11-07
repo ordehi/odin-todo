@@ -1,16 +1,31 @@
-import Todo from '../models/Todo';
-0;
 // const local = window.localStorage;
-const TODO_STORE = {};
 
-// create todo
+const StorageController = () => {
+  const _TODO_STORE = {};
 
-// read todo
+  const readAll = () => _TODO_STORE;
 
-// update todo
+  const writeTodo = (id, todo) => {
+    _TODO_STORE[id] = todo;
+  };
 
-// delete todo
+  const readTodo = (id) => _TODO_STORE[id].getProps();
 
-// expect changeObj
+  const updateTodo = (id, type) => {
+    _TODO_STORE[id][type](arguments);
+  };
 
-// make Todo object
+  const deleteTodo = (id) => {
+    if (id in _TODO_STORE) delete _TODO_STORE[id];
+  };
+
+  return {
+    readAll,
+    writeTodo,
+    readTodo,
+    updateTodo,
+    deleteTodo,
+  };
+};
+
+export const TodoStorage = StorageController();
