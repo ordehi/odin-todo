@@ -1,5 +1,5 @@
 import { Todo } from '../models/Todo';
-import { TodoStorage } from './StorageController';
+import { TodoStorage } from './storageController';
 
 export const UpdateController = () => {
   const _createTodo = (id, name) => {

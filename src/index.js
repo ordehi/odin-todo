@@ -1,3 +1,2 @@
-import { TodoStorage } from './controllers/StorageController';
-
-const storage = TodoStorage();
+import { TodoStorage } from './controllers/storageController';
+import TodoList from './views/TodoList';
