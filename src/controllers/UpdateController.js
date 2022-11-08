@@ -1,12 +1,13 @@
-import { Todo } from '../models/Todo';
-import { TodoNode } from '../components/TodoNode';
-import { todoStorage } from './storageController';
+import storageController from './storageController';
+import renderController from './renderController';
+
+const storage = storageController();
+const renderer = renderController();
 
 const updateController = () => {
-  const _createTodo = (id, name) => {
-    let todo = Todo(id, name);
+  const _runStorageLogic = (id, name) => {
     try {
-      todoStorage.writeTodo(id, todo);
+      let todo = storage.writeTodo(id, name);
       return todo;
     } catch (error) {
       console.log(error);
@@ -14,14 +15,15 @@ const updateController = () => {
     }
   };
 
-  const _createTodoNode = (todo) => {
-    return TodoNode(todo.getProps());
+  const _runRenderLogic = (todo, todoList) => {
+    return renderer.runRenderLogic({ todo, todoList });
   };
 
-  const runTodoLogic = (id, name) => {
-    let todo = _createTodo(id, name);
+  const runTodoLogic = (id, name, todoList) => {
+    let todo = _runStorageLogic(id, name);
     if (todo) {
-      return todo.getProps();
+      _runRenderLogic(todo, todoList);
+      return todo;
     } else {
       return false;
     }

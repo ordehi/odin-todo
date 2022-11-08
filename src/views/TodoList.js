@@ -1,11 +1,13 @@
-import { rootNode } from '../constants/domNodes';
-import { TodoNode } from '../components/TodoNode';
+import { createElement } from '../helpers/dom';
 
 const TodoList = (props) => {
-  for (let count = 0; count < props.todos.length; count += 1) {
-    let todo = props.todos[count];
-    rootNode.appendChild(TodoNode(todo));
-  }
+  let container = createElement(
+    'div',
+    { class: 'todo-list' },
+    props ? props.todos : []
+  );
+
+  return container;
 };
 
 export default TodoList;

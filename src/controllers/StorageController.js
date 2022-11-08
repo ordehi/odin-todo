@@ -1,3 +1,4 @@
+import { Todo } from '../models/Todo';
 // const local = window.localStorage;
 
 const storageController = () => {
@@ -5,8 +6,10 @@ const storageController = () => {
 
   const readAll = () => _TODO_STORE;
 
-  const writeTodo = (id, todo) => {
+  const writeTodo = (id, name) => {
+    let todo = Todo(id, name);
     _TODO_STORE[id] = todo;
+    return todo.getProps();
   };
 
   const readTodo = (id) => _TODO_STORE[id].getProps();
@@ -28,4 +31,4 @@ const storageController = () => {
   };
 };
 
-export const todoStorage = storageController();
+export default storageController;

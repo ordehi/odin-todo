@@ -1,14 +1,4 @@
 import { Button } from './Button';
-/* 
-props
-  tagName: button
-  type: button
-  textContent: Delete Todo (to be replaced by icon)
-  data-change: String "delete"
-eventListener
-  type: click
-  handler: deleteTodo()
-*/
 
 export const DeleteTodoBtn = () => {
   let attrs = [
@@ -18,7 +8,7 @@ export const DeleteTodoBtn = () => {
   ];
   let content = 'Delete Todo';
 
-  let element = Button(attrs, content);
+  let element = Button(attrs, [content]);
 
   return element;
 };

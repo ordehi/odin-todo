@@ -1,12 +1,16 @@
 import updateController from './controllers/updateController';
 import TodoList from './views/TodoList';
 
-const App = updateController();
+const updater = updateController();
+const list = TodoList();
 
 const mockTodos = [
-  App.runTodoLogic('123', 'abc'),
-  App.runTodoLogic('124', 'abd'),
-  App.runTodoLogic('125', 'abe'),
+  updater.runTodoLogic('123', 'abc', list),
+  updater.runTodoLogic('123', 'abc', list),
+  updater.runTodoLogic('123', 'abc', list),
+  updater.runTodoLogic('123', 'abc', list),
+  updater.runTodoLogic('123', 'abc', list),
+  updater.runTodoLogic('123', 'abc', list),
+  updater.runTodoLogic('123', 'abc', list),
+  updater.runTodoLogic('123', 'abc', list),
 ];
-
-TodoList({ todos: mockTodos });
