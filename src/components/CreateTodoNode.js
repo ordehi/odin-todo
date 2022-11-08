@@ -4,7 +4,7 @@ import { TodoNameInput } from './TodoNameInput';
 
 export const CreateTodoNode = (props) => {
   let todoNameInput = TodoNameInput();
-  let addTodoBtn = AddTodoBtn();
+  let addTodoBtn = AddTodoBtn(props.clickHandler);
 
   let element = createElement(
     'div',

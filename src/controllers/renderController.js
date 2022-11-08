@@ -5,6 +5,7 @@ import { CreateTodoNode } from '../components/CreateTodoNode';
 
 const renderController = () => {
   const todoList = TodoList();
+  const clickHandler = (e) => console.log(e);
 
   const _createTodoNode = (todo) => {
     return TodoNode(todo);
@@ -17,7 +18,7 @@ const renderController = () => {
   };
 
   const initUI = () => {
-    rootNode.appendChild(CreateTodoNode());
+    rootNode.appendChild(CreateTodoNode({ clickHandler }));
   };
 
   return {
