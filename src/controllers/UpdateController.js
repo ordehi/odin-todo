@@ -29,13 +29,13 @@ const updateController = () => {
     }
   };
 
-  const initTodos = () => {
-    renderer.initUI();
+  function initTodos() {
+    renderer.initUI(this);
     let todos = Object.keys(storage.readAll()).map((todo) => todo.getProps());
     if (todos.length) {
       _runRenderLogic(todos);
     }
-  };
+  }
 
   return {
     initTodos,

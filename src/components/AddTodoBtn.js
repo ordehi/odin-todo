@@ -1,6 +1,6 @@
 import { Button } from './Button';
 
-export const AddTodoBtn = (clickHandler) => {
+export const AddTodoBtn = (clickHandler, todoNameInput) => {
   let attrs = [
     { type: 'button' },
     { class: 'create-todo' },
@@ -10,7 +10,7 @@ export const AddTodoBtn = (clickHandler) => {
   let content = 'Create Todo';
 
   let element = Button(attrs, [content]);
-  console.log(clickHandler);
+  element.reference = todoNameInput;
   element.onclick = clickHandler;
 
   return element;
