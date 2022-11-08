@@ -1,11 +1,12 @@
 import { Todo } from '../models/Todo';
-import { TodoStorage } from './storageController';
+import { TodoNode } from '../components/TodoNode';
+import { todoStorage } from './storageController';
 
-export const UpdateController = () => {
+const updateController = () => {
   const _createTodo = (id, name) => {
     let todo = Todo(id, name);
     try {
-      TodoStorage.writeTodo(id, todo);
+      todoStorage.writeTodo(id, todo);
       return todo;
     } catch (error) {
       console.log(error);
@@ -14,13 +15,13 @@ export const UpdateController = () => {
   };
 
   const _createTodoNode = (todo) => {
-    return 'mockTodo';
+    return TodoNode(todo.getProps());
   };
 
   const runTodoLogic = (id, name) => {
     let todo = _createTodo(id, name);
     if (todo) {
-      return _createTodoNode(todo);
+      return todo.getProps();
     } else {
       return false;
     }
@@ -30,3 +31,5 @@ export const UpdateController = () => {
     runTodoLogic,
   };
 };
+
+export default updateController;

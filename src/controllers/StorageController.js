@@ -1,6 +1,6 @@
 // const local = window.localStorage;
 
-const StorageController = () => {
+const storageController = () => {
   const _TODO_STORE = {};
 
   const readAll = () => _TODO_STORE;
@@ -28,4 +28,4 @@ const StorageController = () => {
   };
 };
 
-export const TodoStorage = StorageController();
+export const todoStorage = storageController();

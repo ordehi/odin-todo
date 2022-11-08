@@ -1,30 +1,28 @@
 export const Todo = (id, name) => {
-  const _id = id;
-  let _name = name;
-  let _doneStatus = false;
+  const _props = {
+    id,
+    name,
+    doneStatus: false,
+  };
 
   const rename = (name) => {
-    _name = name;
+    _props.name = name;
   };
 
   const toggle = () => {
-    _doneStatus = !_doneStatus;
+    _props.doneStatus = !_props.doneStatus;
   };
 
   const getProps = () => {
-    return { id: _id, name: _name, doneStatus: _doneStatus };
+    return _props;
   };
 
-  const readName = () => _name;
-  const readId = () => _id;
-  const readStatus = () => _doneStatus;
+  const read = (prop) => _props[prop];
 
   return {
     rename,
     toggle,
     getProps,
-    readName,
-    readId,
-    readStatus,
+    read,
   };
 };
