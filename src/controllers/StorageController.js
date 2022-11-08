@@ -1,7 +1,8 @@
 import { Todo } from '../models/Todo';
-// const local = window.localStorage;
 
 const storageController = () => {
+  let localStorage = window.localStorage;
+
   const _TODO_STORE = {};
   let _nextIdNum = 0;
 
@@ -11,6 +12,8 @@ const storageController = () => {
     let id = `a${_nextIdNum}`;
     let todo = Todo(id, name);
     _TODO_STORE[id] = todo;
+    // TODO: need to define a solution for localStorage, stringifying an object is only one level deep and my storage is two
+    localStorage.setItem('happy-todos', JSON.stringify(_TODO_STORE));
     _nextIdNum += 1;
     return todo.getProps();
   };
