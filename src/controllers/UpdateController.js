@@ -5,9 +5,9 @@ const storage = storageController();
 const renderer = renderController();
 
 const updateController = () => {
-  const _runStorageLogic = (id, name) => {
+  const _runStorageLogic = (name) => {
     try {
-      let todo = storage.writeTodo(id, name);
+      let todo = storage.writeTodo(name);
       return todo;
     } catch (error) {
       console.log(error);
@@ -19,8 +19,8 @@ const updateController = () => {
     return renderer.runRenderLogic({ todo });
   };
 
-  const runTodoLogic = (id, name) => {
-    let todo = _runStorageLogic(id, name);
+  const runTodoLogic = (name) => {
+    let todo = _runStorageLogic(name);
     if (todo) {
       _runRenderLogic(todo);
       return todo;

@@ -6,7 +6,7 @@ export const EditTodoBtn = () => {
     { class: 'edit-todo' },
     { 'data-change': 'rename' },
   ];
-  let content = 'Edit Todo';
+  let content = 'Edit';
 
   let element = Button(attrs, [content]);
 

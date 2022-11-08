@@ -3,12 +3,15 @@ import { Todo } from '../models/Todo';
 
 const storageController = () => {
   const _TODO_STORE = {};
+  let _nextIdNum = 0;
 
   const readAll = () => _TODO_STORE;
 
-  const writeTodo = (id, name) => {
+  const writeTodo = (name) => {
+    let id = `a${_nextIdNum}`;
     let todo = Todo(id, name);
     _TODO_STORE[id] = todo;
+    _nextIdNum += 1;
     return todo.getProps();
   };
 

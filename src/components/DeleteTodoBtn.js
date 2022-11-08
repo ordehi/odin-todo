@@ -6,7 +6,7 @@ export const DeleteTodoBtn = () => {
     { class: 'delete-todo' },
     { 'data-change': 'delete' },
   ];
-  let content = 'Delete Todo';
+  let content = 'Delete';
 
   let element = Button(attrs, [content]);
 
