@@ -15,14 +15,14 @@ const updateController = () => {
     }
   };
 
-  const _runRenderLogic = (todo) => {
-    return renderer.runRenderLogic({ todo });
+  const _runRenderLogic = (todos) => {
+    return renderer.runRenderLogic(todos);
   };
 
   const runTodoLogic = (name) => {
     let todo = _runStorageLogic(name);
     if (todo) {
-      _runRenderLogic(todo);
+      _runRenderLogic([todo]);
       return todo;
     } else {
       return false;
@@ -31,8 +31,11 @@ const updateController = () => {
 
   function initTodos() {
     renderer.initUI(this);
-    let todos = Object.keys(storage.readAll()).map((todo) => todo.getProps());
-    if (todos.length) {
+    let store = storage.initStorage();
+    let storeToMap = Object.entries(store);
+    if (storeToMap.length) {
+      let todos = storeToMap.map((todo) => todo[1]);
+      console.log(todos);
       _runRenderLogic(todos);
     }
   }

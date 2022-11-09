@@ -10,9 +10,11 @@ const renderController = () => {
     return TodoNode(todo);
   };
 
-  const runRenderLogic = (props) => {
-    let todoNode = _createTodoNode(props.todo);
-    todoList.appendChild(todoNode);
+  const runRenderLogic = (todos) => {
+    todos.map((todo) => {
+      let todoNode = _createTodoNode(todo);
+      todoList.appendChild(todoNode);
+    });
     rootNode.prepend(todoList);
   };
 

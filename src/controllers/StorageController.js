@@ -1,14 +1,15 @@
 import { Todo } from '../models/Todo';
 import { debounce } from '../helpers/debounce';
+const STORAGE_NAME = 'happy-todos';
 
 const storageController = () => {
   let localStorage = window.localStorage;
 
-  const _TODO_STORE = {};
+  let _TODO_STORE = {};
   let _nextIdNum = 0;
 
   const storeData = (processedData) => {
-    localStorage.setItem('happy-todos', processedData);
+    localStorage.setItem(STORAGE_NAME, processedData);
     console.log('stored', processedData);
   };
 
@@ -47,7 +48,18 @@ const storageController = () => {
     if (id in _TODO_STORE) delete _TODO_STORE[id];
   };
 
+  function initStorage() {
+    let store = localStorage.getItem(STORAGE_NAME);
+    if (store !== null) {
+      _TODO_STORE = JSON.parse(store);
+    } else {
+      localStorage.setItem(STORAGE_NAME, JSON.stringify(_TODO_STORE));
+    }
+    return _TODO_STORE;
+  }
+
   return {
+    initStorage,
     readAll,
     writeTodo,
     readTodo,
