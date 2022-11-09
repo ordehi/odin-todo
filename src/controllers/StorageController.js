@@ -8,6 +8,34 @@ const storageController = () => {
   let _TODO_STORE = {};
   let _nextIdNum = 0;
 
+  const getNextIdNum = (storage, currentId) => {
+    while (storage[`a${currentId}`]) {
+      currentId += 1;
+    }
+    return currentId;
+  };
+
+  const writeTodoOps = {
+    create: (id, change) => {
+      let todo = Todo(id, change.name);
+      _TODO_STORE[id] = todo;
+      return todo;
+    },
+    rename: (id, change) => {
+      _TODO_STORE[id].name = change.name;
+      return _TODO_STORE[id];
+    },
+    toggle: (id, change) => {
+      _TODO_STORE[id].doneStatus = !_TODO_STORE[id].doneStatus;
+      return _TODO_STORE[id];
+    },
+    delete: (id) => {
+      let todo = _TODO_STORE[id];
+      delete _TODO_STORE[id];
+      return todo;
+    },
+  };
+
   const storeData = (processedData) => {
     localStorage.setItem(STORAGE_NAME, processedData);
     console.log('stored', processedData);
@@ -23,26 +51,21 @@ const storageController = () => {
 
   const readAll = () => _TODO_STORE;
 
-  const writeTodo = (name) => {
-    let id = `a${_nextIdNum}`;
-    let todo = Todo(id, name);
+  const writeTodo = (change) => {
+    let type = change.type;
+    let id = change.id || `a${_nextIdNum++}`;
+    let todo = writeTodoOps[type](id, change);
     /* 
     My problem here is that I'm storing Todo objects which dont expose their properties, so when I JSON.stringify them, they look like empty objects.
 
     For now, I'll hack this and traverse the collection when I need to store them in local
       */
-    _TODO_STORE[id] = todo;
-    _nextIdNum += 1;
     waitToProcessData(_TODO_STORE);
 
-    return todo.getProps();
+    return todo;
   };
 
-  const readTodo = (id) => _TODO_STORE[id].getProps();
-
-  const updateTodo = (id, type) => {
-    _TODO_STORE[id][type](arguments);
-  };
+  const readTodo = (id) => _TODO_STORE[id];
 
   const deleteTodo = (id) => {
     if (id in _TODO_STORE) delete _TODO_STORE[id];
@@ -52,6 +75,7 @@ const storageController = () => {
     let store = localStorage.getItem(STORAGE_NAME);
     if (store !== null) {
       _TODO_STORE = JSON.parse(store);
+      _nextIdNum = getNextIdNum(_TODO_STORE, _nextIdNum);
     } else {
       localStorage.setItem(STORAGE_NAME, JSON.stringify(_TODO_STORE));
     }
@@ -63,7 +87,6 @@ const storageController = () => {
     readAll,
     writeTodo,
     readTodo,
-    updateTodo,
     deleteTodo,
   };
 };

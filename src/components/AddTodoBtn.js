@@ -4,7 +4,7 @@ export const AddTodoBtn = (clickHandler, todoNameInput) => {
   let attrs = [
     { type: 'button' },
     { class: 'create-todo' },
-    { 'data-change': 'create' },
+    { 'data-type': 'create' },
   ];
 
   let content = 'Create Todo';

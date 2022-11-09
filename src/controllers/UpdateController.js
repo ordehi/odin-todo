@@ -4,10 +4,12 @@ import renderController from './renderController';
 const storage = storageController();
 const renderer = renderController();
 
+const storageLogic = ['create', 'rename', 'toggle', 'delete'];
+
 const updateController = () => {
-  const _runStorageLogic = (name) => {
+  const _runStorageLogic = (change) => {
     try {
-      let todo = storage.writeTodo(name);
+      let todo = storage.writeTodo(change);
       return todo;
     } catch (error) {
       console.log(error);
@@ -19,8 +21,8 @@ const updateController = () => {
     return renderer.runRenderLogic(todos);
   };
 
-  const runTodoLogic = (name) => {
-    let todo = _runStorageLogic(name);
+  const runTodoLogic = (change) => {
+    let todo = _runStorageLogic(change);
     if (todo) {
       _runRenderLogic([todo]);
       return todo;

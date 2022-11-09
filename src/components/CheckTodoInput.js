@@ -4,7 +4,7 @@ export const CheckTodoInput = () => {
   let checkTodo = createElement('input', [
     { type: 'checkbox' },
     { class: 'check-todo' },
-    { 'data-change': 'toggle' },
+    { 'data-type': 'toggle' },
   ]);
 
   return checkTodo;

@@ -4,17 +4,55 @@ import { TodoName } from './TodoName';
 import { DeleteTodoBtn } from './DeleteTodoBtn';
 import { EditTodoBtn } from './EditTodoBtn';
 
+const clickHandler = (e, updater) => {
+  let name = e.target.reference.value;
+  const { type, refId } = e.target;
+  let change = {
+    type,
+    id: refId,
+    name: reference.querySelector('.todo-name').textContent,
+  };
+  if (change.type) {
+    updater.runTodoLogic(change);
+  }
+};
+
 export const TodoNode = (props) => {
+  let todoNode = createElement('div', [
+    { id: props.id },
+    { class: 'todo-todo' },
+    { 'data-state': 'todo' },
+  ]);
+
   let checkTodo = CheckTodoInput();
   let todoName = TodoName({ name: props.name });
-  let editTodo = EditTodoBtn();
-  let deleteTodo = DeleteTodoBtn();
+  let editTodo = EditTodoBtn(todoNode);
+  let deleteTodo = DeleteTodoBtn(clickHandler, todoNode.id);
 
-  let todoNode = createElement(
-    'div',
-    [{ id: props.id }, { class: 'todo-todo' }],
-    [checkTodo, todoName, editTodo, deleteTodo]
-  );
+  todoNode.append(checkTodo, todoName, editTodo, deleteTodo);
 
   return todoNode;
 };
+
+/* 
+export const CreateTodoNode = (updater) => {
+  let todoNameInput = TodoNameInput();
+  const clickHandler = (e) => {
+    let name = e.target.reference.value;
+    if (name) {
+      updater.runTodoLogic(name);
+    }
+  };
+
+  let addTodoBtn = AddTodoBtn(clickHandler, todoNameInput);
+
+  let element = createElement(
+    'div',
+    [{ class: 'create-todo' }],
+    [todoNameInput, addTodoBtn]
+  );
+
+  return element;
+};
+
+*/
