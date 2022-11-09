@@ -6,7 +6,6 @@ import { EditTodoBtn } from './EditTodoBtn';
 
 export const TodoNode = (props) => {
   let checkTodo = CheckTodoInput();
-  console.log(props);
   let todoName = TodoName({ name: props.name });
   let editTodo = EditTodoBtn();
   let deleteTodo = DeleteTodoBtn();

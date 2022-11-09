@@ -1,4 +1,5 @@
 import { Todo } from '../models/Todo';
+import { debounce } from '../helpers/debounce';
 
 const storageController = () => {
   let localStorage = window.localStorage;
@@ -6,15 +7,33 @@ const storageController = () => {
   const _TODO_STORE = {};
   let _nextIdNum = 0;
 
+  const storeData = (processedData) => {
+    localStorage.setItem('happy-todos', processedData);
+    console.log('stored', processedData);
+  };
+
+  const processData = (data) => {
+    let processedData = JSON.stringify(data);
+    storeData(processedData);
+  };
+
+  // TODO: change the hardcoded timer to wait for idle input
+  const waitToProcessData = debounce((data) => processData(data), 500);
+
   const readAll = () => _TODO_STORE;
 
   const writeTodo = (name) => {
     let id = `a${_nextIdNum}`;
     let todo = Todo(id, name);
+    /* 
+    My problem here is that I'm storing Todo objects which dont expose their properties, so when I JSON.stringify them, they look like empty objects.
+
+    For now, I'll hack this and traverse the collection when I need to store them in local
+      */
     _TODO_STORE[id] = todo;
-    // TODO: need to define a solution for localStorage, stringifying an object is only one level deep and my storage is two
-    localStorage.setItem('happy-todos', JSON.stringify(_TODO_STORE));
     _nextIdNum += 1;
+    waitToProcessData(_TODO_STORE);
+
     return todo.getProps();
   };
 

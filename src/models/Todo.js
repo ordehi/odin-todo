@@ -24,5 +24,7 @@ export const Todo = (id, name) => {
     toggle,
     getProps,
     read,
+    // decided to return props for now as my storage solution broke my encapsulation anyway
+    ..._props,
   };
 };
