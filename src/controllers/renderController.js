@@ -1,30 +1,25 @@
 import TodoList from '../views/TodoList';
-import { TodoNode } from '../components/TodoNode';
 import { rootNode } from '../constants/domNodes';
-import { CreateTodoNode } from '../components/CreateTodoNode';
 
-const renderController = () => {
-  const todoList = TodoList();
+const renderController = (updater) => {
+  let todoList;
 
-  const _createTodoNode = (todo) => {
-    return TodoNode(todo);
+  const _render = () => {
+    rootNode.appendChild(todoList);
   };
 
-  const runRenderLogic = (todos) => {
-    todos.map((todo) => {
-      let todoNode = _createTodoNode(todo);
-      todoList.appendChild(todoNode);
-    });
-    rootNode.prepend(todoList);
+  const reRender = (todos) => {
+    todoList.rerender(todos);
   };
 
-  const initUI = (updater) => {
-    rootNode.appendChild(CreateTodoNode(updater));
+  const initTodoUI = (todos) => {
+    todoList = TodoList({ todos, updater });
+    _render();
   };
 
   return {
-    initUI,
-    runRenderLogic,
+    initTodoUI,
+    reRender,
   };
 };
 

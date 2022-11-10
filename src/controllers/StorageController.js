@@ -25,7 +25,7 @@ const storageController = () => {
       _TODO_STORE[id].name = change.name;
       return _TODO_STORE[id];
     },
-    toggle: (id, change) => {
+    toggle: (id) => {
       _TODO_STORE[id].doneStatus = !_TODO_STORE[id].doneStatus;
       return _TODO_STORE[id];
     },

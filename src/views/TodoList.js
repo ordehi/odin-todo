@@ -1,13 +1,26 @@
 import { createElement } from '../helpers/dom';
+import { CreateTodoNode } from '../components/CreateTodoNode';
+import { TodoNode } from '../components/TodoNode';
 
 const TodoList = (props) => {
-  let container = createElement(
-    'div',
-    { class: 'todo-list' },
-    props ? props.todos : []
-  );
+  const { todos, updater } = props;
+  const { clickHandler } = updater;
+  let element = createElement('div', [{ class: 'todo-list' }]);
+  const createTodoNode = CreateTodoNode({ clickHandler });
 
-  return container;
+  element.appendChild(createTodoNode);
+  const render = (todos) => {
+    todos.map((todo) => {
+      let todoNode = TodoNode({ todo, clickHandler });
+      element.insertBefore(todoNode, createTodoNode);
+    });
+  };
+
+  render(todos);
+
+  element.rerender = render;
+
+  return element;
 };
 
 export default TodoList;

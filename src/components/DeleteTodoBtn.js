@@ -1,6 +1,7 @@
 import { Button } from './Button';
 
-export const DeleteTodoBtn = (clickHandler, refId) => {
+export const DeleteTodoBtn = (props) => {
+  const { clickHandler } = props;
   let attrs = [
     { type: 'button' },
     { class: 'delete-todo' },
@@ -9,7 +10,6 @@ export const DeleteTodoBtn = (clickHandler, refId) => {
   let content = 'Delete';
 
   let element = Button(attrs, [content]);
-  element.dataset.refId = refId;
   element.onclick = clickHandler;
 
   return element;
