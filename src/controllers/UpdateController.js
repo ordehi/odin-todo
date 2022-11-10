@@ -20,14 +20,14 @@ const updateController = () => {
     return renderer.initTodoUI(todos);
   };
 
-  const _runRenderLogic = (todos) => {
-    return renderer.reRender(todos);
+  const _runRenderLogic = (todos, change) => {
+    return renderer.renderUpdate(todos, change);
   };
 
   const _runTodoLogic = (change) => {
     let todo = _runStorageLogic(change);
     if (todo) {
-      _runRenderLogic([todo]);
+      _runRenderLogic([todo], change);
       return todo;
     } else {
       return false;
@@ -35,20 +35,25 @@ const updateController = () => {
   };
 
   function clickHandler(e) {
-    let type = e.target.dataset.type;
-    let parent = e.target.parentElement;
-    let parentId = parent?.id;
-    let input = parent.querySelector('.todo-name-input');
-    let change = {};
-
-    if (input.value || type === 'delete') {
-      change = {
+    if (e?.type === 'rename') {
+      _runTodoLogic(e);
+    } else {
+      let type = e.target.dataset.type;
+      let parent = e.target.parentElement;
+      let parentId = parent?.id;
+      let input = parent.querySelector('.todo-name-input');
+      let change = {
         type,
         id: parentId,
-        name: input.value,
       };
 
-      _runTodoLogic(change);
+      if (input && input.value !== '') {
+        change.name = input?.value;
+        input.value = '';
+        _runTodoLogic(change);
+      } else if (type !== 'create') {
+        _runTodoLogic(change);
+      }
     }
   }
 
@@ -58,10 +63,11 @@ const updateController = () => {
 
     let store = storage.initStorage();
     let storeToMap = Object.entries(store);
+    let todos = [];
     if (storeToMap.length) {
-      let todos = storeToMap.map((todo) => todo[1]);
-      _runInitRenderLogic(todos);
+      todos = storeToMap.map((todo) => todo[1]);
     }
+    _runInitRenderLogic(todos);
   }
 
   return {

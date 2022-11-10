@@ -19,6 +19,10 @@ const TodoList = (props) => {
   render(todos);
 
   element.rerender = render;
+  element.removeTodo = (todos) =>
+    todos.map((todo) => element.removeChild(document.getElementById(todo.id)));
+
+  element.editMutation = (todo) => document.getElementById(todo[0].id).mutate();
 
   return element;
 };

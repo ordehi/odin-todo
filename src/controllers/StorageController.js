@@ -38,7 +38,6 @@ const storageController = () => {
 
   const storeData = (processedData) => {
     localStorage.setItem(STORAGE_NAME, processedData);
-    console.log('stored', processedData);
   };
 
   const processData = (data) => {

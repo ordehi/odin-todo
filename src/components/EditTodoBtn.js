@@ -4,19 +4,30 @@ import { TodoName } from './TodoName';
 
 export const EditTodoBtn = (props) => {
   const { clickHandler } = props;
-  // function mutate() {
-  //   let oldChild = this.reference.querySelector('[data-mutation="edit"]');
-  //   if (oldChild) {
-  //     let text = oldChild.textContent || oldChild.value;
-  //     let newChild =
-  //       oldChild.tagName.toLowerCase() === 'span'
-  //         ? TodoNameInput({ value: text })
-  //         : TodoName({ name: text });
-  //     console.log(newChild);
-  //     this.reference.replaceChild(newChild, oldChild);
-  //     this.textContent = this.textContent === 'Save' ? 'Edit' : 'Save';
-  //   }
-  // }
+  function mutate() {
+    let todo = this.parentElement;
+    let oldChild = todo.querySelector('[data-mutation]');
+    if (oldChild) {
+      let text, newChild;
+
+      if (oldChild.dataset.mutation === 'idle') {
+        text = oldChild.textContent;
+        newChild = TodoNameInput({ value: text });
+      } else {
+        text = oldChild.value;
+        newChild = TodoName({ name: text });
+        let change = {
+          type: 'rename',
+          id: todo.id,
+          name: text,
+        };
+        clickHandler(change);
+      }
+
+      todo.replaceChild(newChild, oldChild);
+      this.textContent = this.textContent === 'Save' ? 'Edit' : 'Save';
+    }
+  }
 
   let attrs = [
     { type: 'button' },
@@ -26,7 +37,7 @@ export const EditTodoBtn = (props) => {
   let content = 'Edit';
 
   let element = Button(attrs, [content]);
-  element.onclick = clickHandler;
+  element.onclick = mutate;
 
   return element;
 };

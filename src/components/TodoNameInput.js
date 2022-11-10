@@ -12,7 +12,6 @@ export const TodoNameInput = (props) => {
   ];
 
   let element = createElement('input', attrs);
-  console.log(props);
   if (props) element.value = props.value;
 
   return element;

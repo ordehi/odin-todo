@@ -8,8 +8,22 @@ const renderController = (updater) => {
     rootNode.appendChild(todoList);
   };
 
-  const reRender = (todos) => {
+  const _reRender = (todos) => {
     todoList.rerender(todos);
+  };
+
+  const _removeTodo = (todos) => {
+    todoList.removeTodo(todos);
+  };
+
+  const _editMutation = (todo) => {
+    todoList.editMutation(todo);
+  };
+
+  const renderUpdate = (todos, change) => {
+    if (change.type === 'create') return _reRender(todos);
+    if (change.type === 'delete') return _removeTodo(todos);
+    if (change.type === 'edit') return _editMutation(todo);
   };
 
   const initTodoUI = (todos) => {
@@ -19,7 +33,7 @@ const renderController = (updater) => {
 
   return {
     initTodoUI,
-    reRender,
+    renderUpdate,
   };
 };
 

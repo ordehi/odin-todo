@@ -4,7 +4,7 @@ export function TodoName(props) {
   let attrs = [
     { class: 'todo-name' },
     { 'data-change': 'toggle' },
-    { 'data-mutation': 'edit' },
+    { 'data-mutation': 'idle' },
   ];
   let content = props.name;
 
