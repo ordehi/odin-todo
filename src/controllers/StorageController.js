@@ -1,6 +1,8 @@
 import { Todo } from '../models/Todo';
 import { debounce } from '../helpers/debounce';
 const STORAGE_NAME = 'happy-todos';
+const EMPTY_OBJ = {};
+const EMPTY_OBJ_STRING = '{}';
 
 const storageController = () => {
   let localStorage = window.localStorage;
@@ -22,11 +24,11 @@ const storageController = () => {
       return todo;
     },
     rename: (id, change) => {
-      _TODO_STORE[id].name = change.name;
+      _TODO_STORE[id].rename(change.name);
       return _TODO_STORE[id];
     },
     toggle: (id) => {
-      _TODO_STORE[id].doneStatus = !_TODO_STORE[id].doneStatus;
+      _TODO_STORE[id].toggle();
       return _TODO_STORE[id];
     },
     delete: (id) => {
@@ -36,13 +38,22 @@ const storageController = () => {
     },
   };
 
-  const storeData = (processedData) => {
-    localStorage.setItem(STORAGE_NAME, processedData);
+  const storeData = (stringData) => {
+    localStorage.setItem(STORAGE_NAME, stringData);
+  };
+
+  const todoToJson = (storeToParse) => {
+    return Object.values(storeToParse).reduce((parsed, todo) => {
+      let id = todo.read('id');
+      parsed[id] = todo.getProps();
+      return parsed;
+    }, {});
   };
 
   const processData = (data) => {
-    let processedData = JSON.stringify(data);
-    storeData(processedData);
+    let processedData = todoToJson(data);
+    let stringData = JSON.stringify(processedData);
+    storeData(stringData);
   };
 
   // TODO: change the hardcoded timer to wait for idle input
@@ -70,13 +81,24 @@ const storageController = () => {
     if (id in _TODO_STORE) delete _TODO_STORE[id];
   };
 
+  const jsonToTodo = (parsedStore) => {
+    return Object.values(parsedStore).reduce((store, todo) => {
+      let { id, name, doneStatus } = todo;
+      store[id] = Todo(id, name, doneStatus);
+      return store;
+    }, {});
+  };
+
   function initStorage() {
     let store = localStorage.getItem(STORAGE_NAME);
-    if (store !== null) {
-      _TODO_STORE = JSON.parse(store);
+    if (store !== null && store !== EMPTY_OBJ_STRING) {
+      let parsedStore = JSON.parse(store);
+      let toStore = jsonToTodo(parsedStore);
+      _TODO_STORE = toStore;
+
       _nextIdNum = getNextIdNum(_TODO_STORE, _nextIdNum);
     } else {
-      localStorage.setItem(STORAGE_NAME, JSON.stringify(_TODO_STORE));
+      localStorage.setItem(STORAGE_NAME, EMPTY_OBJ_STRING);
     }
     return _TODO_STORE;
   }

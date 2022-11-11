@@ -19,15 +19,15 @@ import { EditTodoBtn } from './EditTodoBtn';
 
 export const TodoNode = (props) => {
   const { todo, clickHandler } = props;
-  const { id } = todo;
+  const { id, name, doneStatus } = todo.getProps();
   let todoNode = createElement('div', [
     { id },
-    { class: 'todo-todo' },
+    { class: `todo-${doneStatus ? 'done' : 'todo'}` },
     { 'data-state': 'todo' },
   ]);
 
   let checkTodo = CheckTodoInput();
-  let todoName = TodoName({ name: todo.name });
+  let todoName = TodoName({ name });
   let editTodo = EditTodoBtn({ clickHandler });
   let deleteTodo = DeleteTodoBtn({ clickHandler });
 

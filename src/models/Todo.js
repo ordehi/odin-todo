@@ -1,17 +1,17 @@
-export const Todo = (id, name) => {
+export const Todo = (id, name, doneStatus) => {
   const _props = {
     id,
     name,
-    doneStatus: false,
+    doneStatus: doneStatus || false,
   };
 
-  // const rename = (name) => {
-  //   _props.name = name;
-  // };
+  const rename = (name) => {
+    _props.name = name;
+  };
 
-  // const toggle = () => {
-  //   _props.doneStatus = !_props.doneStatus;
-  // };
+  const toggle = () => {
+    _props.doneStatus = !_props.doneStatus;
+  };
 
   const getProps = () => {
     return _props;
@@ -22,7 +22,7 @@ export const Todo = (id, name) => {
   return {
     getProps,
     read,
-    // decided to return props for now as my storage solution broke my encapsulation anyway
-    ..._props,
+    rename,
+    toggle,
   };
 };
