@@ -4,14 +4,14 @@ import { TodoNode } from '../components/TodoNode';
 
 const TodoList = (props) => {
   const { todos, updater } = props;
-  const { clickHandler } = updater;
+  const { updateHandler } = updater;
   let element = createElement('div', [{ class: 'todo-list' }]);
-  const createTodoNode = CreateTodoNode({ clickHandler });
+  const createTodoNode = CreateTodoNode({ updateHandler });
 
   element.appendChild(createTodoNode);
   const render = (todos) => {
     todos.map((todo) => {
-      let todoNode = TodoNode({ todo, clickHandler });
+      let todoNode = TodoNode({ todo, updateHandler });
       element.insertBefore(todoNode, createTodoNode);
     });
   };
@@ -24,7 +24,8 @@ const TodoList = (props) => {
       element.removeChild(document.getElementById(todo.read('id')))
     );
 
-  element.editMutation = (todo) => document.getElementById(todo[0].id).mutate();
+  // element.editMutation = (todo) =>
+  //   document.getElementById(todo[0].id).clickHandler();
 
   return element;
 };

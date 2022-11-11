@@ -1,12 +1,14 @@
-export const Todo = (id, name, doneStatus) => {
+export const Todo = (id, title, description, doneStatus) => {
   const _props = {
     id,
-    name,
+    title,
+    description,
     doneStatus: doneStatus || false,
   };
 
-  const rename = (name) => {
-    _props.name = name;
+  const edit = (title, description) => {
+    _props.title = title || _props.title;
+    _props.description = description || _props.description;
   };
 
   const toggle = () => {
@@ -22,7 +24,7 @@ export const Todo = (id, name, doneStatus) => {
   return {
     getProps,
     read,
-    rename,
+    edit,
     toggle,
   };
 };

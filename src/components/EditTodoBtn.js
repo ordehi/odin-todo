@@ -1,27 +1,31 @@
 import { Button } from './Button';
-import { TodoNameInput } from './TodoNameInput';
-import { TodoName } from './TodoName';
+import { TodoChange } from './TodoChange';
+import { TodoDetails } from './TodoDetails';
 
 export const EditTodoBtn = (props) => {
-  const { clickHandler } = props;
-  function mutate() {
+  const { updateHandler } = props;
+  function clickHandler() {
     let todo = this.parentElement;
-    let oldChild = todo.querySelector('[data-mutation]');
+    let oldChild = todo.querySelector('span[data-mutation]');
     if (oldChild) {
-      let text, newChild;
+      let title, description, newChild;
+      let children = oldChild.children;
 
       if (oldChild.dataset.mutation === 'idle') {
-        text = oldChild.textContent;
-        newChild = TodoNameInput({ value: text });
+        title = children[0].textContent;
+        description = children[1].textContent;
+        newChild = TodoChange({ title, description });
       } else {
-        text = oldChild.value;
-        newChild = TodoName({ name: text });
+        title = children[0].value;
+        description = children[1].value;
+        newChild = TodoDetails({ title, description });
         let change = {
-          type: 'rename',
+          type: 'edit',
           id: todo.id,
-          name: text,
+          title,
+          description,
         };
-        clickHandler(change);
+        updateHandler(change);
       }
 
       todo.replaceChild(newChild, oldChild);
@@ -32,12 +36,12 @@ export const EditTodoBtn = (props) => {
   let attrs = [
     { type: 'button' },
     { class: 'edit-todo' },
-    { 'data-type': 'rename' },
+    { 'data-type': 'edit' },
   ];
   let content = 'Edit';
 
   let element = Button(attrs, [content]);
-  element.onclick = mutate;
+  element.onclick = clickHandler;
 
   return element;
 };

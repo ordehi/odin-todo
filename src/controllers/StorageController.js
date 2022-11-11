@@ -17,14 +17,14 @@ const storageController = () => {
     return currentId;
   };
 
-  const writeTodoOps = {
+  const _writeTodoOps = {
     create: (id, change) => {
-      let todo = Todo(id, change.name);
+      let todo = Todo(id, change.title, change.description);
       _TODO_STORE[id] = todo;
       return todo;
     },
-    rename: (id, change) => {
-      _TODO_STORE[id].rename(change.name);
+    edit: (id, change) => {
+      _TODO_STORE[id].edit(change.title, change.description);
       return _TODO_STORE[id];
     },
     toggle: (id) => {
@@ -64,12 +64,7 @@ const storageController = () => {
   const writeTodo = (change) => {
     let type = change.type;
     let id = change.id || `a${_nextIdNum++}`;
-    let todo = writeTodoOps[type](id, change);
-    /* 
-    My problem here is that I'm storing Todo objects which dont expose their properties, so when I JSON.stringify them, they look like empty objects.
-
-    For now, I'll hack this and traverse the collection when I need to store them in local
-      */
+    let todo = _writeTodoOps[type](id, change);
     waitToProcessData(_TODO_STORE);
 
     return todo;
@@ -83,8 +78,8 @@ const storageController = () => {
 
   const jsonToTodo = (parsedStore) => {
     return Object.values(parsedStore).reduce((store, todo) => {
-      let { id, name, doneStatus } = todo;
-      store[id] = Todo(id, name, doneStatus);
+      let { id, title, description, doneStatus } = todo;
+      store[id] = Todo(id, title, description, doneStatus);
       return store;
     }, {});
   };

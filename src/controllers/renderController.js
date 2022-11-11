@@ -23,7 +23,6 @@ const renderController = (updater) => {
   const renderUpdate = (todos, change) => {
     if (change.type === 'create') return _reRender(todos);
     if (change.type === 'delete') return _removeTodo(todos);
-    if (change.type === 'edit') return _editMutation(todos);
   };
 
   const initTodoUI = (todos) => {

@@ -1,17 +1,16 @@
 import { createElement } from '../helpers/dom';
 import { AddTodoBtn } from './AddTodoBtn';
-import { TodoNameInput } from './TodoNameInput';
+import { TodoChange } from './TodoChange';
 
 export const CreateTodoNode = (props) => {
-  // when a change happens that introduces input, this input should be rendered in place of a todoName
-  let todoNameInput = TodoNameInput();
+  let todoChange = TodoChange();
 
-  let addTodoBtn = AddTodoBtn({ clickHandler: props.clickHandler });
+  let addTodoBtn = AddTodoBtn({ updateHandler: props.updateHandler });
 
   let element = createElement(
     'div',
     [{ class: 'create-todo' }],
-    [todoNameInput, addTodoBtn]
+    [todoChange, addTodoBtn]
   );
 
   return element;

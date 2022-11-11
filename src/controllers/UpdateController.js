@@ -1,7 +1,7 @@
 import storageController from './storageController';
 import renderController from './renderController';
 
-const storageLogic = ['create', 'rename', 'toggle', 'delete'];
+const storageLogic = ['create', 'rename', 'refine', 'toggle', 'delete'];
 
 const updateController = () => {
   let renderer, storage;
@@ -34,27 +34,8 @@ const updateController = () => {
     }
   };
 
-  function clickHandler(e) {
-    if (e?.type === 'rename') {
-      _runTodoLogic(e);
-    } else {
-      let type = e.target.dataset.type;
-      let parent = e.target.parentElement;
-      let parentId = parent?.id;
-      let input = parent.querySelector('.todo-name-input');
-      let change = {
-        type,
-        id: parentId,
-      };
-
-      if (input && input.value !== '') {
-        change.name = input?.value;
-        input.value = '';
-        _runTodoLogic(change);
-      } else if (type !== 'create') {
-        _runTodoLogic(change);
-      }
-    }
+  function updateHandler(change) {
+    _runTodoLogic(change);
   }
 
   function initTodos() {
@@ -71,7 +52,7 @@ const updateController = () => {
   }
 
   return {
-    clickHandler,
+    updateHandler,
     initTodos,
   };
 };
