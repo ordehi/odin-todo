@@ -1,6 +1,6 @@
 import { createElement } from '../helpers/dom';
 
-export const TodoInput = (props) => {
+export const TextInput = (props) => {
   let attrs = [
     {
       type: 'text',

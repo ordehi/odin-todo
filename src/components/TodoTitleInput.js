@@ -1,4 +1,4 @@
-import { TodoInput } from './TodoInput';
+import { TextInput } from './TextInput';
 
 export const TodoTitleInput = (props) => {
   let properties = {
@@ -9,7 +9,7 @@ export const TodoTitleInput = (props) => {
     value: props && props.value,
   };
 
-  let element = TodoInput(properties);
+  let element = TextInput(properties);
 
   return element;
 };
