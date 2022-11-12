@@ -78,8 +78,8 @@ const storageController = () => {
 
   const jsonToTodo = (parsedStore) => {
     return Object.values(parsedStore).reduce((store, todo) => {
-      let { id, title, description, doneStatus } = todo;
-      store[id] = Todo(id, title, description, doneStatus);
+      let { id, title, description, checked } = todo;
+      store[id] = Todo(id, title, description, checked);
       return store;
     }, {});
   };

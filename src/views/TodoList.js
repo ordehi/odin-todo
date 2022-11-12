@@ -1,14 +1,19 @@
-import { createElement } from '../helpers/dom';
-import { CreateTodoNode } from '../components/CreateTodoNode';
-import { TodoNode } from '../components/TodoNode';
+import { Container } from '../components/generic/Container';
+import { CreateTodoNode } from '../components/todoInput/CreateTodoNode';
+import { TodoNode } from '../components/todoNode/TodoNode';
+import '../styles/todoList.css';
 
 const TodoList = (props) => {
   const { todos, updater } = props;
   const { updateHandler } = updater;
-  let element = createElement('div', [{ class: 'todo-list' }]);
+  const attrs = {
+    class: 'todo-list',
+  };
+  const element = Container({ attrs });
   const createTodoNode = CreateTodoNode({ updateHandler });
 
   element.appendChild(createTodoNode);
+
   const render = (todos) => {
     todos.map((todo) => {
       let todoNode = TodoNode({ todo, updateHandler });

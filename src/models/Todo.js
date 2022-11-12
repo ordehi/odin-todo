@@ -1,9 +1,13 @@
-export const Todo = (id, title, description, doneStatus) => {
+export const Todo = (id, title, description, checked) => {
   const _props = {
     id,
     title,
     description,
-    doneStatus: doneStatus || false,
+    checked: checked || false,
+    dueDate: null,
+    checkList: {},
+    priority: null,
+    label: null,
   };
 
   const edit = (title, description) => {
@@ -12,7 +16,7 @@ export const Todo = (id, title, description, doneStatus) => {
   };
 
   const toggle = () => {
-    _props.doneStatus = !_props.doneStatus;
+    _props.checked = !_props.checked;
   };
 
   const getProps = () => {

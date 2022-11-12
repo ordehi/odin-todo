@@ -1,18 +1,22 @@
-import { createElement } from '../helpers/dom';
+import { Container } from '../generic/Container';
 import { TodoTitleInput } from './TodoTitleInput';
 import { TodoDescriptionInput } from './TodoDescriptionInput';
 
 export const TodoChange = (props) => {
-  let attrs = [{ class: 'todo-change' }, { 'data-mutation': 'change' }];
+  const attrs = {
+    class: 'todo-change',
+    'data-mutation': 'edit',
+    'data-type': 'edit',
+  };
 
   const { title, description } = props || ['', ''];
 
-  let content = [
+  const children = [
     TodoTitleInput({ value: title }),
     TodoDescriptionInput({ value: description }),
   ];
 
-  let element = createElement('span', attrs, content);
+  const element = Container({ attrs, children });
 
   return element;
 };

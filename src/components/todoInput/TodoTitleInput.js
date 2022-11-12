@@ -1,15 +1,16 @@
-import { TextInput } from './TextInput';
+import { TextInput } from '../generic/TextInput';
 
 export const TodoTitleInput = (props) => {
-  let properties = {
+  const attrs = {
     type: 'text',
     class: 'todo-title-input',
     name: 'todoTitleInput',
     id: 'todoTitleInput',
-    value: props && props.value,
   };
 
-  let element = TextInput(properties);
+  const value = props && props.value;
+
+  const element = TextInput({ attrs, value });
 
   return element;
 };
