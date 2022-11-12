@@ -37,24 +37,38 @@ export function TodoNode(props) {
   }
 
   const sendUpdate = (change) => {
-    console.log(change);
-    //updateHandler(change);
+    updateHandler(change);
   };
 
-  const toggleEditMode = () => {
+  const toggleEditMode = (editFinished) => {
+    if (editFinished) {
+      const values = todoChange.readValues();
+      todoDetails.updateContent(values);
+      const change = {
+        id,
+        type: 'edit',
+        title: values.title,
+        description: values.description,
+      };
+      sendUpdate(change);
+    }
     state.editing = !state.editing;
     document.getElementById(id).replaceChild(newChild, oldChild);
     [oldChild, newChild] = [newChild, oldChild];
   };
 
-  function deleteMe() {
-    document.getElementById(id).remove();
+  function deleteTodo() {
+    const change = {
+      type: 'delete',
+      id,
+    };
+    sendUpdate(change);
   }
 
   const children = [
     CheckTodoInput(),
     oldChild,
-    TodoControls({ sendUpdate, toggleEditMode, deleteMe }),
+    TodoControls({ toggleEditMode, deleteTodo }),
   ];
 
   const todoNode = Container({ attrs, children });

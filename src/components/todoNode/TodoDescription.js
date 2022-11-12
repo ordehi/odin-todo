@@ -6,5 +6,9 @@ export function TodoDescription(props) {
 
   const element = Container({ attrs, children });
 
+  element.setContent = (Content) => {
+    element.textContent = Content;
+  };
+
   return element;
 }

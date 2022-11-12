@@ -3,12 +3,17 @@ import { TodoChange } from '../todoInput/TodoChange';
 import { TodoDetails } from '../todoNode/TodoDetails';
 
 export const EditTodoBtn = (props) => {
-  let oldChild;
-  const { sendUpdate, toggleEditMode } = props;
-  console.log(toggleEditMode);
-  function clickHandler() {
+  const state = { editing: false };
+  const { toggleEditMode } = props;
+  function clickHandler(e) {
     const todo = this.parentElement.parentElement;
-    toggleEditMode();
+    state.editing = !state.editing;
+    if (state.editing) {
+      this.textContent = 'Save';
+    } else {
+      this.textContent = 'Edit';
+    }
+    toggleEditMode(!state.editing);
     // sendUpdate(change);
   }
 

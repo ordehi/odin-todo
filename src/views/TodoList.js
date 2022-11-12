@@ -29,9 +29,6 @@ const TodoList = (props) => {
       element.removeChild(document.getElementById(todo.read('id')))
     );
 
-  // element.editMutation = (todo) =>
-  //   document.getElementById(todo[0].id).clickHandler();
-
   return element;
 };
 

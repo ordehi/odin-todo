@@ -1,8 +1,6 @@
 import storageController from './storageController';
 import renderController from './renderController';
 
-const storageLogic = ['create', 'rename', 'refine', 'toggle', 'delete'];
-
 const updateController = () => {
   let renderer, storage;
 

@@ -4,10 +4,10 @@ import { DeleteTodoBtn } from './DeleteTodoBtn';
 
 export const TodoControls = (props) => {
   const attrs = { class: 'todo-controls' };
-  const { sendUpdate, toggleEditMode, deleteMe } = props;
+  const { toggleEditMode, deleteTodo } = props;
   const children = [
-    EditTodoBtn({ sendUpdate, toggleEditMode }),
-    DeleteTodoBtn({ sendUpdate, deleteMe }),
+    EditTodoBtn({ toggleEditMode }),
+    DeleteTodoBtn({ deleteTodo }),
   ];
 
   const element = Container({ attrs, children });

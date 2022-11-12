@@ -16,10 +16,6 @@ const renderController = (updater) => {
     todoList.removeTodo(todos);
   };
 
-  const _editMutation = (todo) => {
-    todoList.editMutation(todo);
-  };
-
   const renderUpdate = (todos, change) => {
     if (change.type === 'create') return _reRender(todos);
     if (change.type === 'delete') return _removeTodo(todos);

@@ -12,5 +12,15 @@ export const TodoDescriptionInput = (props) => {
 
   const element = TextInput({ attrs, value });
 
+  element.setValue = (value) => {
+    element.value = value;
+  };
+
+  function read() {
+    return this.value;
+  }
+
+  element.read = read;
+
   return element;
 };
