@@ -1,0 +1,9 @@
+.todo-change .todo-title-input {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.todo-change .todo-description-input {
+  display: block;
+  width: 80%;
+}

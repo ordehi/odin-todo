@@ -1,5 +1,7 @@
 .todo-list {
   position: relative;
   display: grid;
-  width: 100%;
+  width: 80%;
+  margin: auto;
+  padding: 1rem;
 }

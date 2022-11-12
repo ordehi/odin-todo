@@ -1,6 +1,7 @@
 import { Container } from '../generic/Container';
 import { TodoTitleInput } from './TodoTitleInput';
 import { TodoDescriptionInput } from './TodoDescriptionInput';
+import '../../styles/todoChange.css';
 
 export const TodoChange = (props) => {
   const attrs = {

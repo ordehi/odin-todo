@@ -1,4 +1,15 @@
 .todo-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 5fr 2fr;
   width: 100%;
+  margin-block: 1rem;
+}
+
+.todo-item .todo-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.todo-item .todo-description {
+  font-size: 1rem;
 }

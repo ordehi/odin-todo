@@ -1,6 +1,7 @@
 import { Container } from '../generic/Container';
 import { AddTodoBtn } from './AddTodoBtn';
 import { TodoChange } from './TodoChange';
+import '../../styles/createTodo.css';
 
 export const CreateTodoNode = (props) => {
   const attrs = { class: 'create-todo' };

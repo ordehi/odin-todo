@@ -1,0 +1,9 @@
+.create-todo {
+  margin-block: 1rem;
+  display: grid;
+}
+
+.create-todo .todo-description-input {
+  display: block;
+  width: 80%;
+}
