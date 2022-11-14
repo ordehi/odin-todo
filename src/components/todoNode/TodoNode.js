@@ -40,6 +40,14 @@ export function TodoNode(props) {
     updateHandler(change);
   };
 
+  function toggleStatus() {
+    const change = {
+      type: 'toggle',
+      id,
+    };
+    sendUpdate(change);
+  }
+
   const toggleEditMode = (editFinished) => {
     if (editFinished) {
       const values = todoChange.readValues();
@@ -66,7 +74,7 @@ export function TodoNode(props) {
   }
 
   const children = [
-    CheckTodoInput(),
+    CheckTodoInput({ toggleStatus }),
     oldChild,
     TodoControls({ toggleEditMode, deleteTodo }),
   ];
