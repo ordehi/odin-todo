@@ -13,3 +13,8 @@
 .todo-item .todo-description {
   font-size: 1rem;
 }
+
+.todo-item .check-todo:checked ~ .todo-details {
+  text-decoration: line-through;
+  color: grey;
+}
