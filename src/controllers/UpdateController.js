@@ -18,14 +18,14 @@ const updateController = () => {
     return renderer.initTodoUI(todos);
   };
 
-  const _runRenderLogic = (todos, change) => {
-    return renderer.renderUpdate(todos, change);
+  const _runRenderLogic = (todos, type) => {
+    return renderer.renderUpdate(todos, type);
   };
 
   const _runTodoLogic = (change) => {
     let todo = _runStorageLogic(change);
     if (todo) {
-      _runRenderLogic([todo], change);
+      _runRenderLogic([todo], change.type);
       return todo;
     } else {
       return false;

@@ -8,14 +8,14 @@ export const PrioritySelect = (props) => {
   };
   const { priority: selected } = props;
 
-  const element = SelectInput({ attrs, options, selected });
+  const element = SelectInput({ attrs, options, selected: Number(selected) });
 
   element.setValue = (value) => {
-    element.value = options[value];
+    element.value = value;
   };
 
   function read() {
-    return this.value;
+    return Number(this.value);
   }
 
   element.read = read;

@@ -19,12 +19,13 @@ const storageController = () => {
 
   const _writeTodoOps = {
     create: (id, change) => {
-      let todo = Todo(id, change.title, change.description);
+      const data = { id, ...change };
+      let todo = Todo(data);
       _TODO_STORE[id] = todo;
       return todo;
     },
     edit: (id, change) => {
-      _TODO_STORE[id].edit(change.title, change.description);
+      _TODO_STORE[id].edit(change);
       return _TODO_STORE[id];
     },
     toggle: (id, change) => {
@@ -44,8 +45,8 @@ const storageController = () => {
 
   const todoToJson = (storeToParse) => {
     return Object.values(storeToParse).reduce((parsed, todo) => {
-      let id = todo.read('id');
-      parsed[id] = todo.getProps();
+      let toWrite = todo.getProps();
+      parsed[toWrite.id] = toWrite;
       return parsed;
     }, {});
   };
@@ -62,9 +63,9 @@ const storageController = () => {
   const readAll = () => _TODO_STORE;
 
   const writeTodo = (change) => {
-    let type = change.type;
-    let id = change.id || `a${_nextIdNum++}`;
-    let todo = _writeTodoOps[type](id, change);
+    const { type, data } = change;
+    let id = data?.id || `a${_nextIdNum++}`;
+    let todo = _writeTodoOps[type](id, data);
     waitToProcessData(_TODO_STORE);
 
     return todo;
@@ -78,8 +79,8 @@ const storageController = () => {
 
   const jsonToTodo = (parsedStore) => {
     return Object.values(parsedStore).reduce((store, todo) => {
-      let { id, title, description, checked } = todo;
-      store[id] = Todo(id, title, description, checked);
+      let { ...data } = todo;
+      store[data.id] = Todo(data);
       return store;
     }, {});
   };

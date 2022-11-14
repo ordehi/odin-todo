@@ -16,9 +16,9 @@ const renderController = (updater) => {
     todoList.removeTodo(todos);
   };
 
-  const renderUpdate = (todos, change) => {
-    if (change.type === 'create') return _reRender(todos);
-    if (change.type === 'delete') return _removeTodo(todos);
+  const renderUpdate = (todos, type) => {
+    if (type === 'create') return _reRender(todos);
+    if (type === 'delete') return _removeTodo(todos);
   };
 
   const initTodoUI = (todos) => {

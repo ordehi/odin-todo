@@ -30,6 +30,7 @@ export const TodoChange = (props) => {
     const values = {
       title: todoTitleInput.read(),
       description: todoDescriptionInput.read(),
+      priority: prioritySelect.read(),
     };
     return values;
   }

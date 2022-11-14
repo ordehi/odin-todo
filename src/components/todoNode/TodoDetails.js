@@ -15,9 +15,10 @@ export const TodoDetails = (props) => {
   const element = Container({ attrs, children });
 
   function updateContent(content) {
-    const { title, description } = content;
+    const { title, description, priority } = content;
     todoTitle.setContent(title);
     todoDescription.setContent(description);
+    prioritySelect.setValue(priority);
   }
 
   element.updateContent = updateContent;

@@ -25,9 +25,10 @@ const TodoList = (props) => {
 
   element.rerender = render;
   element.removeTodo = (todos) =>
-    todos.map((todo) =>
-      element.removeChild(document.getElementById(todo.read('id')))
-    );
+    todos.map((todo) => {
+      console.log(todo.getProps());
+      element.removeChild(document.getElementById(todo.getProps().id));
+    });
 
   return element;
 };

@@ -11,18 +11,29 @@ export const AddTodoBtn = (props) => {
     const parent = e.target.parentElement;
     const titleInput = parent.querySelector('.todo-title-input');
     const descriptionInput = parent.querySelector('.todo-description-input');
-    const [title, description] = [titleInput.value, descriptionInput.value];
+    const prioritySelect = parent.querySelector('.todo-priority-select');
+    const [title, description, priority] = [
+      titleInput.value,
+      descriptionInput.value,
+      prioritySelect.value,
+    ];
+    const type = 'create';
     let change = {};
 
     if (title) {
       change = {
-        type: 'create',
-        title,
-        description,
+        type,
+        data: {
+          title,
+          description,
+          checked: false,
+          priority,
+        },
       };
 
       titleInput.value = '';
       descriptionInput.value = '';
+      prioritySelect.value = 0;
       props.updateHandler(change);
     }
   }

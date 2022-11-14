@@ -36,8 +36,10 @@ export function TodoNode(props) {
     checked = this.checked;
     const change = {
       type: 'toggle',
-      checked,
-      id,
+      data: {
+        id,
+        checked,
+      },
     };
     sendUpdate(change);
   }
@@ -47,11 +49,13 @@ export function TodoNode(props) {
       const values = todoChange.readValues();
       todoDetails.updateContent(values);
       const change = {
-        id,
         type: 'edit',
-        title: values.title,
-        description: values.description,
-        priority: values.priority,
+        data: {
+          id,
+          title: values.title,
+          description: values.description,
+          priority: values.priority,
+        },
       };
       sendUpdate(change);
     }
@@ -63,7 +67,7 @@ export function TodoNode(props) {
   function deleteTodo() {
     const change = {
       type: 'delete',
-      id,
+      data: { id },
     };
     sendUpdate(change);
   }
