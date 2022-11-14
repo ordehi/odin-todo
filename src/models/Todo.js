@@ -15,8 +15,8 @@ export const Todo = (id, title, description, checked) => {
     _props.description = description || _props.description;
   };
 
-  const toggle = () => {
-    _props.checked = !_props.checked;
+  const toggle = (checked) => {
+    _props.checked = checked;
   };
 
   const getProps = () => {

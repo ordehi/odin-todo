@@ -7,8 +7,10 @@ export const CheckTodoInput = (props) => {
     'data-type': 'toggle',
   };
 
+  if (props.checked) attrs.checked = props.checked;
+
   const checkTodo = Checkbox(attrs);
-  checkTodo.toggleStatus = toggleStatus;
+  checkTodo.onclick = toggleStatus;
 
   return checkTodo;
 };

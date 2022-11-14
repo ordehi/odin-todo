@@ -8,16 +8,8 @@ import '../../styles/todoNode.css';
 export function TodoNode(props) {
   const state = { editing: false };
   const { todo, updateHandler } = props;
-  const {
-    id,
-    title,
-    description,
-    checked,
-    dueDate,
-    checkList,
-    priority,
-    label,
-  } = todo.getProps();
+  let { id, title, description, checked, dueDate, checkList, priority, label } =
+    todo.getProps();
 
   const attrs = {
     id,
@@ -41,8 +33,10 @@ export function TodoNode(props) {
   };
 
   function toggleStatus() {
+    checked = this.checked;
     const change = {
       type: 'toggle',
+      checked,
       id,
     };
     sendUpdate(change);
@@ -74,7 +68,7 @@ export function TodoNode(props) {
   }
 
   const children = [
-    CheckTodoInput({ toggleStatus }),
+    CheckTodoInput({ toggleStatus, checked }),
     oldChild,
     TodoControls({ toggleEditMode, deleteTodo }),
   ];

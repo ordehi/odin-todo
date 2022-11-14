@@ -27,8 +27,8 @@ const storageController = () => {
       _TODO_STORE[id].edit(change.title, change.description);
       return _TODO_STORE[id];
     },
-    toggle: (id) => {
-      _TODO_STORE[id].toggle();
+    toggle: (id, change) => {
+      _TODO_STORE[id].toggle(change.checked);
       return _TODO_STORE[id];
     },
     delete: (id) => {
