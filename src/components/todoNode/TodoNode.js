@@ -17,8 +17,8 @@ export function TodoNode(props) {
     'data-state': 'todo',
   };
 
-  const todoDetails = TodoDetails({ title, description });
-  const todoChange = TodoChange({ title, description });
+  const todoDetails = TodoDetails({ title, description, priority });
+  const todoChange = TodoChange({ title, description, priority });
   let oldChild, newChild;
   if (state.editing) {
     oldChild = todoChange;
@@ -51,6 +51,7 @@ export function TodoNode(props) {
         type: 'edit',
         title: values.title,
         description: values.description,
+        priority: values.priority,
       };
       sendUpdate(change);
     }

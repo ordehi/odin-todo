@@ -6,7 +6,7 @@ export const Todo = (id, title, description, checked) => {
     checked: checked || false,
     dueDate: null,
     checkList: {},
-    priority: null,
+    priority: 1,
     label: null,
   };
 
