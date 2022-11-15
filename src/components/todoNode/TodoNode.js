@@ -14,14 +14,30 @@ function TodoNode({ todo, updateHandler }) {
     class: `todo-item todo-${todoProps.checked ? "checked" : "unchecked"}`,
     "data-state": "todo",
   };
-  const todoDetails = TodoDetails({ title, description, priority });
+
+  const sendUpdate = (change) => {
+    updateHandler(change);
+  };
+
+  const updatePriority = (newValue) =>
+    sendUpdate({
+      type: "edit",
+      data: {
+        id,
+        priority: newValue,
+      },
+    });
+
+  const todoDetails = TodoDetails({
+    updatePriority,
+    title,
+    description,
+    priority,
+  });
   const todoChange = TodoChange({ title, description, priority });
   let [oldChild, newChild] = state.editing
     ? [todoChange, todoDetails]
     : [todoDetails, todoChange];
-  const sendUpdate = (change) => {
-    updateHandler(change);
-  };
 
   function toggleStatus() {
     todoProps.checked = this.checked;

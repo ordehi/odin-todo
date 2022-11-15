@@ -3,11 +3,16 @@ import TodoTitle from "./TodoTitle";
 import TodoDescription from "./TodoDescription";
 import PrioritySelect from "../todoInput/PrioritySelect";
 
-const TodoDetails = ({ title = "", description = "", priority = 0 }) => {
+const TodoDetails = ({
+  updatePriority,
+  title = "",
+  description = "",
+  priority = 0,
+}) => {
   const attrs = { class: "todo-details", "data-mutation": "edit" };
   const todoTitle = TodoTitle({ title });
   const todoDescription = TodoDescription({ description });
-  const prioritySelect = PrioritySelect({ priority });
+  const prioritySelect = PrioritySelect({ updatePriority, priority });
   const children = [todoTitle, todoDescription, prioritySelect];
   const element = Container({ attrs, children });
 
