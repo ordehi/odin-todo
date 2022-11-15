@@ -1,12 +1,10 @@
 import { Todo } from '../models/Todo';
 import { debounce } from '../helpers/debounce';
-const STORAGE_NAME = 'happy-todos';
-const EMPTY_OBJ = {};
-const EMPTY_OBJ_STRING = '{}';
+import { STORAGE_NAME } from '../constants/vars';
+import { EMPTY_OBJ_STRING } from '../constants/vars';
 
 const storageController = () => {
-  let localStorage = window.localStorage;
-
+  const localStorage = window.localStorage;
   let _TODO_STORE = {};
   let _nextIdNum = 0;
 
@@ -62,12 +60,10 @@ const storageController = () => {
 
   const readAll = () => _TODO_STORE;
 
-  const writeTodo = (change) => {
-    const { type, data } = change;
+  const writeTodo = ({ type, data }) => {
     let id = data?.id || `a${_nextIdNum++}`;
     let todo = _writeTodoOps[type](id, data);
     waitToProcessData(_TODO_STORE);
-
     return todo;
   };
 
@@ -79,23 +75,23 @@ const storageController = () => {
 
   const jsonToTodo = (parsedStore) => {
     return Object.values(parsedStore).reduce((store, todo) => {
-      let { ...data } = todo;
+      const { ...data } = todo;
       store[data.id] = Todo(data);
       return store;
     }, {});
   };
 
   function initStorage() {
-    let store = localStorage.getItem(STORAGE_NAME);
+    const store = localStorage.getItem(STORAGE_NAME);
     if (store !== null && store !== EMPTY_OBJ_STRING) {
-      let parsedStore = JSON.parse(store);
-      let toStore = jsonToTodo(parsedStore);
+      const parsedStore = JSON.parse(store);
+      const toStore = jsonToTodo(parsedStore);
       _TODO_STORE = toStore;
-
       _nextIdNum = getNextIdNum(_TODO_STORE, _nextIdNum);
     } else {
       localStorage.setItem(STORAGE_NAME, EMPTY_OBJ_STRING);
     }
+
     return _TODO_STORE;
   }
 

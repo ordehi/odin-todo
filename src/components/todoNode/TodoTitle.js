@@ -1,9 +1,8 @@
 import { Container } from '../generic/Container';
 
-export function TodoTitle(props) {
+export function TodoTitle({ title = '' }) {
   const attrs = { class: 'todo-title', 'data-change': 'toggle' };
-  const children = [props.title];
-
+  const children = [title];
   const element = Container({ attrs, children });
 
   element.setContent = (Content) => {

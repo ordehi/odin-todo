@@ -1,15 +1,11 @@
 import { SelectInput } from '../generic/SelectInput';
-
 const options = ['choose priority', 'normal', 'medium', 'major', 'critical'];
 
-export const PrioritySelect = (props) => {
+export const PrioritySelect = ({ priority: selected }) => {
   const attrs = {
     class: 'todo-priority-select',
   };
-  const { priority: selected } = props;
-
   const element = SelectInput({ attrs, options, selected: Number(selected) });
-
   element.setValue = (value) => {
     element.value = value;
   };
@@ -19,6 +15,5 @@ export const PrioritySelect = (props) => {
   }
 
   element.read = read;
-
   return element;
 };

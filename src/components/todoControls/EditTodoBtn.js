@@ -1,12 +1,8 @@
 import { Button } from '../generic/Button';
-import { TodoChange } from '../todoInput/TodoChange';
-import { TodoDetails } from '../todoNode/TodoDetails';
 
-export const EditTodoBtn = (props) => {
+export const EditTodoBtn = ({ toggleEditMode }) => {
   const state = { editing: false };
-  const { toggleEditMode } = props;
   function clickHandler(e) {
-    const todo = this.parentElement.parentElement;
     state.editing = !state.editing;
     if (state.editing) {
       this.textContent = 'Save';
@@ -14,7 +10,6 @@ export const EditTodoBtn = (props) => {
       this.textContent = 'Edit';
     }
     toggleEditMode(!state.editing);
-    // sendUpdate(change);
   }
 
   let attrs = { type: 'button', class: 'edit-todo', 'data-type': 'edit' };

@@ -1,12 +1,7 @@
-export const createElement = (tag, attrs, children = []) => {
+export const createElement = ({ tag = 'div', attrs = {}, children = [] }) => {
   const element = document.createElement(tag);
-
-  for (const attr in attrs) {
-    element.setAttribute(attr, attrs[attr]);
-  }
-
+  Object.entries(attrs).map((attr) => element.setAttribute(attr[0], attr[1]));
   element.append(...children);
-
   return element;
 };
 

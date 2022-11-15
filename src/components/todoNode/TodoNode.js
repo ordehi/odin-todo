@@ -5,29 +5,20 @@ import { TodoChange } from '../todoInput/TodoChange';
 import { TodoControls } from '../todoControls/TodoControls';
 import '../../styles/todoNode.css';
 
-export function TodoNode(props) {
+export function TodoNode({ todo, updateHandler }) {
   const state = { editing: false };
-  const { todo, updateHandler } = props;
   let { id, title, description, checked, dueDate, checkList, priority, label } =
     todo.getProps();
-
   const attrs = {
     id,
     class: `todo-item todo-${checked ? 'checked' : 'unchecked'}`,
     'data-state': 'todo',
   };
-
   const todoDetails = TodoDetails({ title, description, priority });
   const todoChange = TodoChange({ title, description, priority });
-  let oldChild, newChild;
-  if (state.editing) {
-    oldChild = todoChange;
-    newChild = todoDetails;
-  } else {
-    oldChild = todoDetails;
-    newChild = todoChange;
-  }
-
+  let [oldChild, newChild] = state.editing
+    ? [todoChange, todoDetails]
+    : [todoDetails, todoChange];
   const sendUpdate = (change) => {
     updateHandler(change);
   };
@@ -52,13 +43,12 @@ export function TodoNode(props) {
         type: 'edit',
         data: {
           id,
-          title: values.title,
-          description: values.description,
-          priority: values.priority,
+          ...values,
         },
       };
       sendUpdate(change);
     }
+
     state.editing = !state.editing;
     document.getElementById(id).replaceChild(newChild, oldChild);
     [oldChild, newChild] = [newChild, oldChild];
@@ -77,8 +67,6 @@ export function TodoNode(props) {
     oldChild,
     TodoControls({ toggleEditMode, deleteTodo }),
   ];
-
   const todoNode = Container({ attrs, children });
-
   return todoNode;
 }

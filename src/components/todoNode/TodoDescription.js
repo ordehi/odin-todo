@@ -1,8 +1,8 @@
 import { Container } from '../generic/Container';
 
-export function TodoDescription(props) {
+export function TodoDescription({ description }) {
   const attrs = { class: 'todo-description', 'data-change': 'refine' };
-  const children = [props.description];
+  const children = [description];
 
   const element = Container({ attrs, children });
 

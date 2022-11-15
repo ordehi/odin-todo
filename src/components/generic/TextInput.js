@@ -1,13 +1,16 @@
 import { createElement } from '../../helpers/dom';
 
-export const TextInput = (props) => {
-  const attrs = {
-    type: 'text',
-    ...props.attrs,
+export const TextInput = ({ attrs, value = '' }) => {
+  const elementProps = {
+    tag: 'input',
+    attrs: {
+      type: 'text',
+      ...attrs,
+    },
   };
 
-  const element = createElement('input', attrs);
-  if (props && props.value) element.value = props.value;
+  const element = createElement(elementProps);
+  element.value = value;
 
   return element;
 };

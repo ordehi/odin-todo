@@ -1,7 +1,6 @@
 import { Button } from '../generic/Button';
 
-export const DeleteTodoBtn = (props) => {
-  const { deleteTodo } = props;
+export const DeleteTodoBtn = ({ deleteTodo }) => {
   let attrs = { type: 'button', class: 'delete-todo', 'data-type': 'delete' };
   let children = ['Delete'];
 

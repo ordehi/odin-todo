@@ -1,10 +1,8 @@
 import { Button } from '../generic/Button';
 
-export const AddTodoBtn = (props) => {
+export const AddTodoBtn = ({ updateHandler }) => {
   const attrs = { type: 'button', class: 'create-todo', 'data-type': 'create' };
-
   const children = ['Create Todo'];
-
   const element = Button({ attrs, children });
 
   function clickHandler(e) {
@@ -12,33 +10,29 @@ export const AddTodoBtn = (props) => {
     const titleInput = parent.querySelector('.todo-title-input');
     const descriptionInput = parent.querySelector('.todo-description-input');
     const prioritySelect = parent.querySelector('.todo-priority-select');
-    const [title, description, priority] = [
-      titleInput.value,
-      descriptionInput.value,
-      prioritySelect.value,
-    ];
+    const values = {
+      title: titleInput.value,
+      description: descriptionInput.value,
+      priority: prioritySelect.value,
+    };
     const type = 'create';
     let change = {};
-
-    if (title) {
+    if (values.title) {
       change = {
         type,
         data: {
-          title,
-          description,
           checked: false,
-          priority,
+          ...values,
         },
       };
 
       titleInput.value = '';
       descriptionInput.value = '';
       prioritySelect.value = 0;
-      props.updateHandler(change);
+      updateHandler(change);
     }
   }
 
   element.onclick = clickHandler;
-
   return element;
 };

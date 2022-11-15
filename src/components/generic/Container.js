@@ -1,8 +1,7 @@
 import { createElement } from '../../helpers/dom';
 
-export const Container = (props) => {
-  const { attrs, children = [] } = props;
-  const element = createElement('div', attrs, children);
-
+export const Container = ({ attrs, children = [] }) => {
+  const elementProps = { tag: 'div', attrs, children };
+  const element = createElement(elementProps);
   return element;
 };

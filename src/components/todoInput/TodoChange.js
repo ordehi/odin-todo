@@ -4,14 +4,12 @@ import { TodoDescriptionInput } from './TodoDescriptionInput';
 import { PrioritySelect } from './PrioritySelect';
 import '../../styles/todoChange.css';
 
-export const TodoChange = (props) => {
+export const TodoChange = ({ title = '', description = '', priority = 0 }) => {
   const attrs = {
     class: 'todo-change',
     'data-mutation': 'edit',
     'data-type': 'edit',
   };
-
-  const { title, description, priority } = props || ['', '', 0];
 
   const todoTitleInput = TodoTitleInput({ value: title });
   const todoDescriptionInput = TodoDescriptionInput({ value: description });
