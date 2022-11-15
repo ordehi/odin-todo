@@ -1,24 +1,28 @@
-const Todo = (data) => {
-  const props = data;
+class Todo {
+  constructor(data) {
+    this.id = data.id;
+    this.title = data.title;
+    this.description = data.description;
+    this.priority = data.priority;
+    this.checked = data.checked;
+    this.dueDate = data.dueDate;
+  }
 
-  const edit = (change) => {
-    Object.assign(props, change);
-  };
+  edit(change) {
+    Object.assign(this, change);
+  }
 
-  const toggle = (checked) => {
-    props.checked = checked;
-  };
+  toggle(checked) {
+    this.checked = checked;
+  }
 
-  const getProps = () => props;
+  getProps() {
+    return this;
+  }
 
-  const read = (prop) => props[prop];
-
-  return {
-    getProps,
-    read,
-    edit,
-    toggle,
-  };
-};
+  read(prop) {
+    return this[prop];
+  }
+}
 
 export default Todo;

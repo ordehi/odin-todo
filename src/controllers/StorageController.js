@@ -19,7 +19,7 @@ const storageController = () => {
     create: (id, change) => {
       const todoId = `a${id}`;
       const data = { id: todoId, ...change };
-      const todo = Todo(data);
+      const todo = new Todo(data);
       TODO_STORE[todoId] = todo;
       nextIdNum = getNextIdNum(TODO_STORE, nextIdNum);
       return todo;
@@ -78,7 +78,7 @@ const storageController = () => {
     Object.values(parsedStore).reduce((store, todo) => {
       const { ...data } = todo;
       const todoStore = { ...store };
-      todoStore[data.id] = Todo(data);
+      todoStore[data.id] = new Todo(data);
       return todoStore;
     }, {});
   function initStorage() {

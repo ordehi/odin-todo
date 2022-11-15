@@ -21,8 +21,7 @@ const PrioritySelect = ({ updatePriority, priority: selected }) => {
   }
 
   element.read = read;
-
-  element.onchange = sendPriority;
+  if (updatePriority) element.onchange = sendPriority;
   return element;
 };
 
