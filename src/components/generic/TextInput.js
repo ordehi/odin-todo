@@ -1,10 +1,10 @@
-import { createElement } from '../../helpers/dom';
+import { createElement } from "../../helpers/dom";
 
-export const TextInput = ({ attrs, value = '' }) => {
+const TextInput = ({ attrs, value = "" }) => {
   const elementProps = {
-    tag: 'input',
+    tag: "input",
     attrs: {
-      type: 'text',
+      type: "text",
       ...attrs,
     },
   };
@@ -14,3 +14,5 @@ export const TextInput = ({ attrs, value = '' }) => {
 
   return element;
 };
+
+export default TextInput;

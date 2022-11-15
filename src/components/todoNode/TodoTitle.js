@@ -1,13 +1,15 @@
-import { Container } from '../generic/Container';
+import Container from "../generic/Container";
 
-export function TodoTitle({ title = '' }) {
-  const attrs = { class: 'todo-title', 'data-change': 'toggle' };
+function TodoTitle({ title = "" }) {
+  const attrs = { class: "todo-title", "data-change": "toggle" };
   const children = [title];
   const element = Container({ attrs, children });
 
-  element.setContent = (Content) => {
-    element.textContent = Content;
+  element.setContent = (content) => {
+    element.textContent = content;
   };
 
   return element;
 }
+
+export default TodoTitle;

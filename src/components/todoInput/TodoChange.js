@@ -1,14 +1,14 @@
-import { Container } from '../generic/Container';
-import { TodoTitleInput } from './TodoTitleInput';
-import { TodoDescriptionInput } from './TodoDescriptionInput';
-import { PrioritySelect } from './PrioritySelect';
-import '../../styles/todoChange.css';
+import Container from "../generic/Container";
+import TodoTitleInput from "./TodoTitleInput";
+import TodoDescriptionInput from "./TodoDescriptionInput";
+import PrioritySelect from "./PrioritySelect";
+import "../../styles/todoChange.css";
 
-export const TodoChange = ({ title = '', description = '', priority = 0 }) => {
+const TodoChange = ({ title = "", description = "", priority = 0 }) => {
   const attrs = {
-    class: 'todo-change',
-    'data-mutation': 'edit',
-    'data-type': 'edit',
+    class: "todo-change",
+    "data-mutation": "edit",
+    "data-type": "edit",
   };
 
   const todoTitleInput = TodoTitleInput({ value: title });
@@ -18,10 +18,9 @@ export const TodoChange = ({ title = '', description = '', priority = 0 }) => {
   const children = [todoTitleInput, todoDescriptionInput, prioritySelect];
 
   function updateValues(values) {
-    const { title, description, priority } = values;
-    todoTitleInput.setValue(title);
-    todoDescriptionInput.setValue(description);
-    prioritySelect.setValue(priority);
+    todoTitleInput.setValue(values.title);
+    todoDescriptionInput.setValue(values.description);
+    prioritySelect.setValue(values.priority);
   }
 
   function readValues() {
@@ -39,3 +38,5 @@ export const TodoChange = ({ title = '', description = '', priority = 0 }) => {
 
   return element;
 };
+
+export default TodoChange;

@@ -1,38 +1,40 @@
-import { Todo } from '../models/Todo';
-import { debounce } from '../helpers/debounce';
-import { STORAGE_NAME } from '../constants/vars';
-import { EMPTY_OBJ_STRING } from '../constants/vars';
+import Todo from "../models/Todo";
+import debounce from "../helpers/debounce";
+import { STORAGE_NAME, EMPTY_OBJ_STRING } from "../constants/vars";
 
 const storageController = () => {
-  const localStorage = window.localStorage;
-  let _TODO_STORE = {};
-  let _nextIdNum = 0;
+  const { localStorage } = window;
+  let TODO_STORE = {};
+  let nextIdNum = 0;
 
   const getNextIdNum = (storage, currentId) => {
-    while (storage[`a${currentId}`]) {
-      currentId += 1;
+    let newId = currentId;
+    while (storage[`a${newId}`]) {
+      newId += 1;
     }
-    return currentId;
+    return newId;
   };
 
-  const _writeTodoOps = {
+  const writeTodoOps = {
     create: (id, change) => {
-      const data = { id, ...change };
-      let todo = Todo(data);
-      _TODO_STORE[id] = todo;
+      const todoId = `a${id}`;
+      const data = { id: todoId, ...change };
+      const todo = Todo(data);
+      TODO_STORE[todoId] = todo;
+      nextIdNum = getNextIdNum(TODO_STORE, nextIdNum);
       return todo;
     },
     edit: (id, change) => {
-      _TODO_STORE[id].edit(change);
-      return _TODO_STORE[id];
+      TODO_STORE[id].edit(change);
+      return TODO_STORE[id];
     },
     toggle: (id, change) => {
-      _TODO_STORE[id].toggle(change.checked);
-      return _TODO_STORE[id];
+      TODO_STORE[id].toggle(change.checked);
+      return TODO_STORE[id];
     },
     delete: (id) => {
-      let todo = _TODO_STORE[id];
-      delete _TODO_STORE[id];
+      const todo = TODO_STORE[id];
+      delete TODO_STORE[id];
       return todo;
     },
   };
@@ -41,58 +43,56 @@ const storageController = () => {
     localStorage.setItem(STORAGE_NAME, stringData);
   };
 
-  const todoToJson = (storeToParse) => {
-    return Object.values(storeToParse).reduce((parsed, todo) => {
-      let toWrite = todo.getProps();
-      parsed[toWrite.id] = toWrite;
-      return parsed;
+  const todoToJson = (storeToParse) =>
+    Object.values(storeToParse).reduce((parsed, todo) => {
+      const toWrite = todo.getProps();
+      const parsedStore = { ...parsed };
+      parsedStore[toWrite.id] = toWrite;
+      return parsedStore;
     }, {});
-  };
-
   const processData = (data) => {
-    let processedData = todoToJson(data);
-    let stringData = JSON.stringify(processedData);
+    const processedData = todoToJson(data);
+    const stringData = JSON.stringify(processedData);
     storeData(stringData);
   };
 
   // TODO: change the hardcoded timer to wait for idle input
   const waitToProcessData = debounce((data) => processData(data), 500);
 
-  const readAll = () => _TODO_STORE;
+  const readAll = () => TODO_STORE;
 
   const writeTodo = ({ type, data }) => {
-    let id = data?.id || `a${_nextIdNum++}`;
-    let todo = _writeTodoOps[type](id, data);
-    waitToProcessData(_TODO_STORE);
+    const id = data?.id || nextIdNum;
+    const todo = writeTodoOps[type](id, data);
+    waitToProcessData(TODO_STORE);
     return todo;
   };
 
-  const readTodo = (id) => _TODO_STORE[id];
+  const readTodo = (id) => TODO_STORE[id];
 
   const deleteTodo = (id) => {
-    if (id in _TODO_STORE) delete _TODO_STORE[id];
+    if (id in TODO_STORE) delete TODO_STORE[id];
   };
 
-  const jsonToTodo = (parsedStore) => {
-    return Object.values(parsedStore).reduce((store, todo) => {
+  const jsonToTodo = (parsedStore) =>
+    Object.values(parsedStore).reduce((store, todo) => {
       const { ...data } = todo;
-      store[data.id] = Todo(data);
-      return store;
+      const todoStore = { ...store };
+      todoStore[data.id] = Todo(data);
+      return todoStore;
     }, {});
-  };
-
   function initStorage() {
     const store = localStorage.getItem(STORAGE_NAME);
     if (store !== null && store !== EMPTY_OBJ_STRING) {
       const parsedStore = JSON.parse(store);
       const toStore = jsonToTodo(parsedStore);
-      _TODO_STORE = toStore;
-      _nextIdNum = getNextIdNum(_TODO_STORE, _nextIdNum);
+      TODO_STORE = toStore;
+      nextIdNum = getNextIdNum(TODO_STORE, nextIdNum);
     } else {
       localStorage.setItem(STORAGE_NAME, EMPTY_OBJ_STRING);
     }
 
-    return _TODO_STORE;
+    return TODO_STORE;
   }
 
   return {

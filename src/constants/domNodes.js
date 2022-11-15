@@ -1,1 +1,3 @@
-export const rootNode = document.getElementById('root');
+const rootNode = document.getElementById("root");
+
+export default rootNode;

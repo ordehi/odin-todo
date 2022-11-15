@@ -1,18 +1,18 @@
-import { Container } from '../generic/Container';
-import { CheckTodoInput } from '../todoControls/CheckTodoInput';
-import { TodoDetails } from './TodoDetails';
-import { TodoChange } from '../todoInput/TodoChange';
-import { TodoControls } from '../todoControls/TodoControls';
-import '../../styles/todoNode.css';
+import Container from "../generic/Container";
+import CheckTodoInput from "../todoControls/CheckTodoInput";
+import TodoDetails from "./TodoDetails";
+import TodoChange from "../todoInput/TodoChange";
+import TodoControls from "../todoControls/TodoControls";
+import "../../styles/todoNode.css";
 
-export function TodoNode({ todo, updateHandler }) {
+function TodoNode({ todo, updateHandler }) {
   const state = { editing: false };
-  let { id, title, description, checked, dueDate, checkList, priority, label } =
-    todo.getProps();
+  const todoProps = todo.getProps();
+  const { id, title, description, priority } = todoProps;
   const attrs = {
     id,
-    class: `todo-item todo-${checked ? 'checked' : 'unchecked'}`,
-    'data-state': 'todo',
+    class: `todo-item todo-${todoProps.checked ? "checked" : "unchecked"}`,
+    "data-state": "todo",
   };
   const todoDetails = TodoDetails({ title, description, priority });
   const todoChange = TodoChange({ title, description, priority });
@@ -24,12 +24,12 @@ export function TodoNode({ todo, updateHandler }) {
   };
 
   function toggleStatus() {
-    checked = this.checked;
+    todoProps.checked = this.checked;
     const change = {
-      type: 'toggle',
+      type: "toggle",
       data: {
         id,
-        checked,
+        checked: todoProps.checked,
       },
     };
     sendUpdate(change);
@@ -40,7 +40,7 @@ export function TodoNode({ todo, updateHandler }) {
       const values = todoChange.readValues();
       todoDetails.updateContent(values);
       const change = {
-        type: 'edit',
+        type: "edit",
         data: {
           id,
           ...values,
@@ -56,17 +56,19 @@ export function TodoNode({ todo, updateHandler }) {
 
   function deleteTodo() {
     const change = {
-      type: 'delete',
+      type: "delete",
       data: { id },
     };
     sendUpdate(change);
   }
 
   const children = [
-    CheckTodoInput({ toggleStatus, checked }),
+    CheckTodoInput({ toggleStatus, checked: todoProps.checked }),
     oldChild,
     TodoControls({ toggleEditMode, deleteTodo }),
   ];
   const todoNode = Container({ attrs, children });
   return todoNode;
 }
+
+export default TodoNode;

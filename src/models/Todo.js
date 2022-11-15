@@ -1,19 +1,17 @@
-export const Todo = (data) => {
-  const _props = data;
+const Todo = (data) => {
+  const props = data;
 
   const edit = (change) => {
-    Object.assign(_props, change);
+    Object.assign(props, change);
   };
 
   const toggle = (checked) => {
-    _props.checked = checked;
+    props.checked = checked;
   };
 
-  const getProps = () => {
-    return _props;
-  };
+  const getProps = () => props;
 
-  const read = (prop) => _props[prop];
+  const read = (prop) => props[prop];
 
   return {
     getProps,
@@ -22,3 +20,5 @@ export const Todo = (data) => {
     toggle,
   };
 };
+
+export default Todo;

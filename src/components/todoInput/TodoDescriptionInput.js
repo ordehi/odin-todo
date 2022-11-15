@@ -1,17 +1,14 @@
-import { TextInput } from '../generic/TextInput';
+import TextInput from "../generic/TextInput";
 
-export const TodoDescriptionInput = (props) => {
+const TodoDescriptionInput = ({ value = "" }) => {
   const attrs = {
-    type: 'text',
-    class: 'todo-description-input',
+    type: "text",
+    class: "todo-description-input",
   };
-
-  const value = props && props.value;
-
   const element = TextInput({ attrs, value });
 
-  element.setValue = (value) => {
-    element.value = value;
+  element.setValue = (newValue) => {
+    element.value = newValue;
   };
 
   function read() {
@@ -19,6 +16,7 @@ export const TodoDescriptionInput = (props) => {
   }
 
   element.read = read;
-
   return element;
 };
+
+export default TodoDescriptionInput;

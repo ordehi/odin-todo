@@ -1,29 +1,30 @@
-import TodoList from '../views/TodoList';
-import { rootNode } from '../constants/domNodes';
+import TodoList from "../views/TodoList";
+import rootNode from "../constants/domNodes";
 
 const renderController = (updater) => {
   let todoList;
 
-  const _render = () => {
+  const render = () => {
     rootNode.appendChild(todoList);
   };
 
-  const _reRender = (todos) => {
+  const reRender = (todos) => {
     todoList.rerender(todos);
   };
 
-  const _removeTodo = (todos) => {
+  const removeTodo = (todos) => {
     todoList.removeTodo(todos);
   };
 
   const renderUpdate = (todos, type) => {
-    if (type === 'create') return _reRender(todos);
-    if (type === 'delete') return _removeTodo(todos);
+    if (type === "create") return reRender(todos);
+    if (type === "delete") return removeTodo(todos);
+    return false;
   };
 
   const initTodoUI = (todos) => {
     todoList = TodoList({ todos, updater });
-    _render();
+    render();
   };
 
   return {
