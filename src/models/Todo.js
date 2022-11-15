@@ -6,6 +6,8 @@ class Todo {
     this.priority = data.priority;
     this.checked = data.checked;
     this.dueDate = data.dueDate;
+    this.checklist = data.checklist;
+    this.notes = data.notes;
   }
 
   edit(change) {
