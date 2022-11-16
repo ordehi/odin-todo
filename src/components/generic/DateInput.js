@@ -1,6 +1,6 @@
 import { createElement } from "../../helpers/dom";
 
-const DateInput = ({ attrs = {}, value = "" }) => {
+const DateInput = ({ attrs = {}, dueDate = "" }) => {
   const elementProps = {
     tag: "input",
     attrs: {
@@ -10,8 +10,7 @@ const DateInput = ({ attrs = {}, value = "" }) => {
   };
 
   const element = createElement(elementProps);
-  element.value = value;
-
+  element.value = dueDate;
   return element;
 };
 

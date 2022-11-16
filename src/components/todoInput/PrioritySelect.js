@@ -2,7 +2,7 @@ import SelectInput from "../generic/SelectInput";
 
 const options = ["choose priority", "normal", "medium", "major", "critical"];
 
-const PrioritySelect = ({ updatePriority, priority: selected }) => {
+const PrioritySelect = ({ updateValue, priority: selected }) => {
   const attrs = {
     class: "todo-priority-select",
   };
@@ -17,11 +17,12 @@ const PrioritySelect = ({ updatePriority, priority: selected }) => {
 
   function sendPriority() {
     const newValue = element.read();
-    updatePriority(newValue);
+    const change = { priority: newValue };
+    updateValue(change);
   }
 
   element.read = read;
-  if (updatePriority) element.onchange = sendPriority;
+  if (updateValue) element.onchange = sendPriority;
   return element;
 };
 

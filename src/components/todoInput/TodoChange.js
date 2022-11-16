@@ -5,7 +5,12 @@ import PrioritySelect from "./PrioritySelect";
 import DueDateInput from "./DueDateInput";
 import "../../styles/todoChange.css";
 
-const TodoChange = ({ title = "", description = "", priority = 0 }) => {
+const TodoChange = ({
+  title = "",
+  description = "",
+  priority = 0,
+  dueDate = "",
+}) => {
   const attrs = {
     class: "todo-change",
     "data-mutation": "edit",
@@ -15,7 +20,7 @@ const TodoChange = ({ title = "", description = "", priority = 0 }) => {
   const todoTitleInput = TodoTitleInput({ value: title });
   const todoDescriptionInput = TodoDescriptionInput({ value: description });
   const prioritySelect = PrioritySelect({ priority });
-  const dueDateInput = DueDateInput({});
+  const dueDateInput = DueDateInput({ dueDate });
 
   const children = [
     todoTitleInput,
@@ -28,6 +33,7 @@ const TodoChange = ({ title = "", description = "", priority = 0 }) => {
     todoTitleInput.setValue(values.title);
     todoDescriptionInput.setValue(values.description);
     prioritySelect.setValue(values.priority);
+    dueDateInput.setValue(values.dueDate);
   }
 
   function readValues() {
@@ -35,6 +41,7 @@ const TodoChange = ({ title = "", description = "", priority = 0 }) => {
       title: todoTitleInput.read(),
       description: todoDescriptionInput.read(),
       priority: prioritySelect.read(),
+      dueDate: dueDateInput.read(),
     };
     return values;
   }

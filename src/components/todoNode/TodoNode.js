@@ -8,7 +8,7 @@ import "../../styles/todoNode.css";
 function TodoNode({ todo, updateHandler }) {
   const state = { editing: false };
   const todoProps = todo.getProps();
-  const { id, title, description, priority } = todoProps;
+  const { id, title, description, priority, dueDate } = todoProps;
   const attrs = {
     id,
     class: `todo-item todo-${todoProps.checked ? "checked" : "unchecked"}`,
@@ -19,22 +19,24 @@ function TodoNode({ todo, updateHandler }) {
     updateHandler(change);
   };
 
-  const updatePriority = (newValue) =>
+  const updateValue = (newValues) => {
     sendUpdate({
       type: "edit",
       data: {
         id,
-        priority: newValue,
+        ...newValues,
       },
     });
+  };
 
   const todoDetails = TodoDetails({
-    updatePriority,
+    updateValue,
     title,
     description,
     priority,
+    dueDate,
   });
-  const todoChange = TodoChange({ title, description, priority });
+  const todoChange = TodoChange({ title, description, priority, dueDate });
   let [oldChild, newChild] = state.editing
     ? [todoChange, todoDetails]
     : [todoDetails, todoChange];
