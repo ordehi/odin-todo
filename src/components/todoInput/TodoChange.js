@@ -2,6 +2,7 @@ import Container from "../generic/Container";
 import TodoTitleInput from "./TodoTitleInput";
 import TodoDescriptionInput from "./TodoDescriptionInput";
 import PrioritySelect from "./PrioritySelect";
+import DueDateInput from "./DueDateInput";
 import "../../styles/todoChange.css";
 
 const TodoChange = ({ title = "", description = "", priority = 0 }) => {
@@ -14,8 +15,14 @@ const TodoChange = ({ title = "", description = "", priority = 0 }) => {
   const todoTitleInput = TodoTitleInput({ value: title });
   const todoDescriptionInput = TodoDescriptionInput({ value: description });
   const prioritySelect = PrioritySelect({ priority });
+  const dueDateInput = DueDateInput({});
 
-  const children = [todoTitleInput, todoDescriptionInput, prioritySelect];
+  const children = [
+    todoTitleInput,
+    todoDescriptionInput,
+    prioritySelect,
+    dueDateInput,
+  ];
 
   function updateValues(values) {
     todoTitleInput.setValue(values.title);
