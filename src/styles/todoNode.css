@@ -5,15 +5,15 @@
 
 .todo-item .todo-title {
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
-.todo-item .todo-description {
+.todo-item .todo-details .todo-description {
   font-size: 1rem;
 }
 
-.todo-item .check-todo:checked ~ .todo-title {
+.todo-item .todo-header .check-todo:checked ~ .todo-title {
   text-decoration: line-through;
   color: grey;
 }

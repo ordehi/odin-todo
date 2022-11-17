@@ -17,14 +17,14 @@ const PrioritySelect = ({ updateValue, priority: selected }) => {
     options,
     selected: Number(selected),
   });
-  select.setValue = (value) => {
-    select.value = value;
-  };
   const children = [label, select];
   const container = Container({ attrs, children });
+  container.setValue = (value) => {
+    select.value = value;
+  };
 
   function read() {
-    return Number(this.value);
+    return Number(select.value);
   }
 
   function sendPriority() {
@@ -33,7 +33,7 @@ const PrioritySelect = ({ updateValue, priority: selected }) => {
     updateValue(change);
   }
 
-  select.read = read;
+  container.read = read;
   if (updateValue) select.onchange = sendPriority;
   return container;
 };
