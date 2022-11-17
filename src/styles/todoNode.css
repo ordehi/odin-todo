@@ -4,6 +4,7 @@
 }
 
 .todo-item .todo-title {
+  display: inline-block;
   font-size: 1.2rem;
   font-weight: 600;
 }
@@ -12,7 +13,7 @@
   font-size: 1rem;
 }
 
-.todo-item .check-todo:checked ~ .todo-details {
+.todo-item .check-todo:checked ~ .todo-title {
   text-decoration: line-through;
   color: grey;
 }
