@@ -1,11 +1,11 @@
 import Container from "../generic/Container";
-import TodoHeader from "./TodoHeader";
-import TodoDetails from "./TodoDetails";
+import TodoHeader from "../todoNode/TodoHeader";
+import TodoDetails from "../todoNode/TodoDetails";
 import TodoChange from "../todoInput/TodoChange";
 import TodoControls from "../todoControls/TodoControls";
 import "../../styles/todoNode.css";
 
-function TodoNode({ todo, updateHandler }) {
+function TodoModal({ todo, updateHandler }) {
   const state = { editing: false };
   const todoProps = todo.getProps();
   const { id, title, description, priority, dueDate } = todoProps;
@@ -105,4 +105,4 @@ function TodoNode({ todo, updateHandler }) {
   return todoNode;
 }
 
-export default TodoNode;
+export default TodoModal;
