@@ -29,18 +29,6 @@ function TodoNode({ todo, updateHandler }) {
     });
   };
 
-  const todoDetails = TodoDetails({
-    updateValue,
-    title,
-    description,
-    priority,
-    dueDate,
-  });
-  const todoChange = TodoChange({ title, description, priority, dueDate });
-  let [oldChild, newChild] = state.editing
-    ? [todoChange, todoDetails]
-    : [todoDetails, todoChange];
-
   function toggleStatus() {
     todoProps.checked = this.checked;
     const change = {
@@ -53,9 +41,39 @@ function TodoNode({ todo, updateHandler }) {
     sendUpdate(change);
   }
 
+  const todoHeader = TodoHeader({
+    toggleStatus,
+    checked: todoProps.checked,
+    title,
+  });
+  const todoDetails = TodoDetails({
+    updateValue,
+    title,
+    description,
+    priority,
+    dueDate,
+  });
+  const detailsDisplay = Container({
+    attrs: {
+      class: "todo-info-display",
+    },
+    children: [todoHeader, todoDetails],
+  });
+  const todoChange = TodoChange({ title, description, priority, dueDate });
+  const editDisplay = Container({
+    attrs: {
+      class: "todo-edit-display",
+    },
+    children: [todoChange],
+  });
+  let [oldChild, newChild] = state.editing
+    ? [editDisplay, detailsDisplay]
+    : [detailsDisplay, editDisplay];
+
   const toggleEditMode = (editFinished) => {
     if (editFinished) {
       const values = todoChange.readValues();
+      todoHeader.updateContent(values);
       todoDetails.updateContent(values);
       const change = {
         type: "edit",
@@ -80,11 +98,7 @@ function TodoNode({ todo, updateHandler }) {
     sendUpdate(change);
   }
 
-  const children = [
-    TodoHeader({ toggleStatus, checked: todoProps.checked, title }),
-    oldChild,
-    TodoControls({ toggleEditMode, deleteTodo }),
-  ];
+  const children = [oldChild, TodoControls({ toggleEditMode, deleteTodo })];
   const todoNode = Container({ attrs, children });
   return todoNode;
 }
