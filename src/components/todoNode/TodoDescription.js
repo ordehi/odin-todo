@@ -5,8 +5,8 @@ function TodoDescription({ description }) {
   const children = [description];
   const element = Container({ attrs, children });
 
-  element.setContent = (Content) => {
-    element.textContent = Content;
+  element.setValue = (content) => {
+    element.textContent = content;
   };
 
   return element;

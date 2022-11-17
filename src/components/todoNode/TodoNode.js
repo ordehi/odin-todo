@@ -4,6 +4,9 @@ import TodoDetails from "./TodoDetails";
 import TodoChange from "../todoInput/TodoChange";
 import TodoControls from "../todoControls/TodoControls";
 import "../../styles/todoNode.css";
+import "../../styles/todoModal.css";
+
+// TODO: make this into a modal rather than rendering a new element
 
 function TodoNode({ todo, updateHandler }) {
   const state = { editing: false };
@@ -11,7 +14,9 @@ function TodoNode({ todo, updateHandler }) {
   const { id, title, description, priority, dueDate } = todoProps;
   const attrs = {
     id,
-    class: `todo-item todo-${todoProps.checked ? "checked" : "unchecked"}`,
+    class: `todo-node todo-item todo-${
+      todoProps.checked ? "checked" : "unchecked"
+    }`,
     "data-state": "todo",
   };
 
@@ -29,8 +34,8 @@ function TodoNode({ todo, updateHandler }) {
     });
   };
 
-  function toggleStatus() {
-    todoProps.checked = this.checked;
+  function toggleStatus(isChecked) {
+    todoProps.checked = isChecked;
     const change = {
       type: "toggle",
       data: {
@@ -41,9 +46,21 @@ function TodoNode({ todo, updateHandler }) {
     sendUpdate(change);
   }
 
+  function toggleModal() {
+    const thisTodo = document.getElementById(id);
+    thisTodo.classList.toggle("todo-item");
+    thisTodo.classList.toggle("todo-modal");
+  }
+
+  function toggles(which, isChecked) {
+    if (which === "status") return toggleStatus(isChecked);
+    if (which === "modal") return toggleModal();
+    return false;
+  }
+
   // TODO: refactor editDisplay and detailsDisplay into their own components
   const todoHeader = TodoHeader({
-    toggleStatus,
+    toggles,
     checked: todoProps.checked,
     title,
   });

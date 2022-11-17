@@ -17,7 +17,7 @@ const TodoDetails = ({
   const element = Container({ attrs, children });
 
   function updateContent(content) {
-    todoDescription.setContent(content.description);
+    todoDescription.setValue(content.description);
     prioritySelect.setValue(content.priority);
     dueDateInput.setValue(content.dueDate);
   }

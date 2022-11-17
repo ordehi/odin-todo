@@ -53,6 +53,7 @@ function TodoModal({ todo, updateHandler }) {
     description,
     priority,
     dueDate,
+    type: "modal",
   });
   const detailsDisplay = Container({
     attrs: {

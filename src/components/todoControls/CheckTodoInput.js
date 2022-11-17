@@ -1,6 +1,6 @@
 import Checkbox from "../generic/Checkbox";
 
-const CheckTodoInput = ({ toggleStatus, checked }) => {
+const CheckTodoInput = ({ checked }) => {
   const attrs = {
     class: "check-todo",
     "data-type": "toggle",
@@ -8,8 +8,6 @@ const CheckTodoInput = ({ toggleStatus, checked }) => {
 
   if (checked) attrs.checked = checked;
   const checkTodo = Checkbox({ attrs });
-  checkTodo.onclick = toggleStatus;
-
   return checkTodo;
 };
 
