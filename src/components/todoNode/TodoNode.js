@@ -1,5 +1,5 @@
 import Container from "../generic/Container";
-import CheckTodoInput from "../todoControls/CheckTodoInput";
+import TodoHeader from "./TodoHeader";
 import TodoDetails from "./TodoDetails";
 import TodoChange from "../todoInput/TodoChange";
 import TodoControls from "../todoControls/TodoControls";
@@ -81,7 +81,7 @@ function TodoNode({ todo, updateHandler }) {
   }
 
   const children = [
-    CheckTodoInput({ toggleStatus, checked: todoProps.checked }),
+    TodoHeader({ toggleStatus, checked: todoProps.checked, title }),
     oldChild,
     TodoControls({ toggleEditMode, deleteTodo }),
   ];
