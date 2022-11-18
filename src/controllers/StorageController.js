@@ -28,6 +28,10 @@ const storageController = () => {
       TODO_STORE[id].edit(change);
       return TODO_STORE[id];
     },
+    comment: (id, change) => {
+      TODO_STORE[id].comment(change.comments);
+      return TODO_STORE[id];
+    },
     toggle: (id, change) => {
       TODO_STORE[id].toggle(change.checked);
       return TODO_STORE[id];

@@ -7,11 +7,15 @@ class Todo {
     this.checked = data.checked;
     this.dueDate = data.dueDate;
     this.checklist = data.checklist;
-    this.comments = data.comments;
+    this.comments = data.comments || [];
   }
 
   edit(change) {
     Object.assign(this, change);
+  }
+
+  comment(comments) {
+    this.comments = comments;
   }
 
   toggle(checked) {

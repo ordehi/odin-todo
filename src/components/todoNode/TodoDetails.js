@@ -6,6 +6,7 @@ import TodoComments from "./TodoComments";
 
 const TodoDetails = ({
   updateValue,
+  updateComments,
   description = "",
   priority = 0,
   dueDate = "",
@@ -15,7 +16,7 @@ const TodoDetails = ({
   const todoDescription = TodoDescription({ description });
   const prioritySelect = PrioritySelect({ updateValue, priority });
   const dueDateInput = DueDateInput({ updateValue, dueDate });
-  const todoComments = TodoComments({ comments });
+  const todoComments = TodoComments({ updateComments, comments });
   const children = [
     todoDescription,
     prioritySelect,

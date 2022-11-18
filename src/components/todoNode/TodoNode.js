@@ -34,6 +34,17 @@ function TodoNode({ todo, updateHandler }) {
     });
   };
 
+  const updateComments = (newComments) => {
+    comments.push(...newComments.comments);
+    sendUpdate({
+      type: "comment",
+      data: {
+        id,
+        comments,
+      },
+    });
+  };
+
   function toggleStatus(isChecked) {
     todoProps.checked = isChecked;
     const change = {
@@ -66,6 +77,7 @@ function TodoNode({ todo, updateHandler }) {
   });
   const todoDetails = TodoDetails({
     updateValue,
+    updateComments,
     title,
     description,
     priority,
