@@ -11,7 +11,7 @@ import "../../styles/todoModal.css";
 function TodoNode({ todo, updateHandler }) {
   const state = { editing: false };
   const todoProps = todo.getProps();
-  const { id, title, description, priority, dueDate } = todoProps;
+  const { id, title, description, priority, dueDate, comments } = todoProps;
   const attrs = {
     id,
     class: `todo-node todo-item todo-${
@@ -70,6 +70,7 @@ function TodoNode({ todo, updateHandler }) {
     description,
     priority,
     dueDate,
+    comments,
   });
   const detailsDisplay = Container({
     attrs: {
@@ -78,7 +79,13 @@ function TodoNode({ todo, updateHandler }) {
     children: [todoHeader, todoDetails],
   });
   // TODO: refactor change so it doesn't have to re-render priority, dueDate and any inputs that can be updated without edit mode
-  const todoChange = TodoChange({ title, description, priority, dueDate });
+  const todoChange = TodoChange({
+    title,
+    description,
+    priority,
+    dueDate,
+    comments,
+  });
   const editDisplay = Container({
     attrs: {
       class: "todo-edit-display",
