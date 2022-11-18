@@ -24,7 +24,14 @@ const TodoList = (props) => {
 
   render(todos);
 
-  element.rerender = render;
+  const renderComment = (comment) => {
+    const todoId = comment.id.split("-")[0];
+    const todoNode = element.querySelector(`#${todoId}`);
+    todoNode.addComment(comment);
+  };
+
+  element.render = render;
+  element.renderComment = renderComment;
   element.removeTodo = (todosToMap) =>
     todosToMap.map((todo) =>
       element.removeChild(document.getElementById(todo.getProps().id))

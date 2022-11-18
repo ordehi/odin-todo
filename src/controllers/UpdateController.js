@@ -14,12 +14,12 @@ const updateController = () => {
   };
 
   const runInitRenderLogic = (todos) => renderer.initTodoUI(todos);
-  const runRenderLogic = (todos, type) => renderer.renderUpdate(todos, type);
+  const runRenderLogic = (data, type) => renderer.renderUpdate(data, type);
   const runTodoLogic = (change) => {
-    const todo = runStorageLogic(change);
-    if (todo) {
-      runRenderLogic([todo], change.type);
-      return todo;
+    const data = runStorageLogic(change);
+    if (data) {
+      runRenderLogic([data], change.type);
+      return data;
     }
     return false;
   };

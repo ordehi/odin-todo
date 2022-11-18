@@ -2,9 +2,12 @@ import Container from "../generic/Container";
 import Button from "../generic/Button";
 import Paragraph from "../generic/Paragraph";
 
-function TodoComment({ text = "" }) {
-  const attrs = { class: "todo-comment" };
-  const comment = Paragraph({ attrs, children: [text] });
+function TodoComment({ id = "", text = "" }) {
+  const attrs = { class: "todo-comment", id };
+  const comment = Paragraph({
+    attrs: { class: "comment-text" },
+    children: [text],
+  });
   const editBtn = Button({
     attrs: { class: "edit-comment" },
     children: ["Edit"],

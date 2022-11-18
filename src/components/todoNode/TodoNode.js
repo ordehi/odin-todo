@@ -34,13 +34,12 @@ function TodoNode({ todo, updateHandler }) {
     });
   };
 
-  const updateComments = (newComments) => {
-    comments.push(...newComments.comments);
+  const updateComments = (newComment) => {
     sendUpdate({
       type: "comment",
       data: {
         id,
-        comments,
+        comment: newComment,
       },
     });
   };
@@ -78,7 +77,7 @@ function TodoNode({ todo, updateHandler }) {
   const todoDetails = TodoDetails({
     updateValue,
     updateComments,
-    title,
+    id,
     description,
     priority,
     dueDate,
@@ -138,6 +137,7 @@ function TodoNode({ todo, updateHandler }) {
 
   const children = [oldChild, TodoControls({ toggleEditMode, deleteTodo })];
   const todoNode = Container({ attrs, children });
+  todoNode.addComment = todoDetails.addComment;
   return todoNode;
 }
 

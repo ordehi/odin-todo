@@ -2,7 +2,7 @@ import Container from "../generic/Container";
 import TextInput from "../generic/TextInput";
 import Button from "../generic/Button";
 
-const AddTodoComment = ({ sendComments, value = "" }) => {
+const AddTodoComment = ({ sendComment, value = "" }) => {
   const elementAttrs = { class: "add-comment-container" };
   const btnAttrs = {
     type: "button",
@@ -15,8 +15,7 @@ const AddTodoComment = ({ sendComments, value = "" }) => {
   const element = Container({ attrs: elementAttrs, children });
   function clickHandler() {
     if (commentInput.value === "") return null;
-    const change = { comments: [commentInput.value] };
-    return sendComments(change);
+    return sendComment(commentInput.value);
   }
 
   addBtn.onclick = clickHandler;

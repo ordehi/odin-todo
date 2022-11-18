@@ -8,17 +8,10 @@ const renderController = (updater) => {
     rootNode.appendChild(todoList);
   };
 
-  const reRender = (todos) => {
-    todoList.rerender(todos);
-  };
-
-  const removeTodo = (todos) => {
-    todoList.removeTodo(todos);
-  };
-
-  const renderUpdate = (todos, type) => {
-    if (type === "create") return reRender(todos);
-    if (type === "delete") return removeTodo(todos);
+  const renderUpdate = (data, type) => {
+    if (type === "create") return todoList.render(data);
+    if (type === "delete") return todoList.removeTodo(data);
+    if (type === "comment") return todoList.renderComment(...data);
     return false;
   };
 
